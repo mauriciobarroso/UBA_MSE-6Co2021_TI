@@ -1,4 +1,4 @@
-% Chapter 1
+\texttt{•}% Chapter 1
 
 \chapter{Introducción general} % Main chapter title
 
@@ -37,19 +37,105 @@ Hoy en dia, muchos dispositivos comerciales y profesionales como smartphones, ta
 %----------------------------------------------------------------------------------------
 \section{Inteligencia Artificial, Aprendizaje Automatico y Aprendizaje Profundo}
 
-AI (\textit{Artificial Intelligence}, Intelegencia Artificial), ML (\textit{Machine Learning}, Aprendizaje Automatico) y DL (\textit{Deep Learning}, Aprendizaje Profundo), son terminos muy utilizados hoy en dia en el mundo del desarrollo tecnologico [ref]. Aunque estos terminos son muy parecidos, entre ellos existen diferencias que pueden ser visulizadas con ayuda de la figura \ref{fig:ai_ml_dl}.
+AI (\textit{Artificial Intelligence}, Intelegencia Artificial), ML (\textit{Machine Learning}, Aprendizaje Automatico) y DL (\textit{Deep Learning}, Aprendizaje Profundo), son terminos muy utilizados hoy en dia en el mundo del desarrollo tecnologico [ref]. Aunque estos terminos son muy parecidos, entre ellos existen dependencias que pueden ser visulizadas con ayuda de la figura \ref{fig:ai_ml_dl}.
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.55]{./Figures/ai_ml_dl.png}
-	\caption{Diferencias entre AI, ML,y DL.}
+	\includegraphics[scale=0.3]{./Figures/ai_ml_dl.png}
+	\caption{Diferencias entre AI, ML y DL.}
 	\label{fig:ai_ml_dl}
 \end{figure}
 
-\subsection{Inteligencia Artificial}
-La intelegencia artificial hace referencia a sistemas computacionales que pueden imitar la inteligencia humana para la resolucion de tareas, y pueden 
+AI es un area de la computacion que permite a los sistemas computacionales imitar la inteligencia humana para entender su entorno y tomar acciones que maximicen sus posibilidades de lograr sus objetivos [ref]. Sus aplicaciones más importante se ecuentran en la áreas de comercio, educación, robótica, salud, agricultura, automotriz y finanzas[https://www.simplilearn.com/tutorials/artificial-intelligence-tutorial/artificial-intelligence-applications]. Todos los sistemas de inteligencia artificial reales e hipotéticos pueden ser clasificados en alguno de los siguientes tipos:
+\begin{itemize}
+	\item ANI (\textit{Artificial Narrow Intelligence, Inteligencia Artificial Estrecha}): también conocida como inteligencia artificial débil, su objetivo es llevar a cabo un solo tipo de tarea. Estos sistemas no poseen consciencia y no son manejados por sentimientos como lo haría un humano. Algunos ejemplos de ANI son los chat bots o los automóviles autónomos.
+	\item AGI (\textit{Artificial General Intelligence}, Inteligencia Artificial General): también conocida como inteligencia artificial fuerte, es un concepto en el que las máquinas exhiben inteligencia humana. Estos sistemas tendrían la capacidad de aprender, entender y actuar de tal manera que sería indistinguible a un humano. AIG actualmente no existe, pero es utilizado en industrias como el cine 
+	\item ASI (\textit{Artificial Super Intelligence}, Super Inteligencia Artificial): ASI también forma parte de la inteligencia artificial fuerte. Se le considera muy poderosa por ser capaz de volverse consciente y autónoma.
+No solo replica el comportamiento humano, sino que lo supera. Puede pensar mejor y tener más habilidades. Sin embargo, esta tecnología aún está en desarrollo.
+\end{itemize}
 
+ML es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos para contruir sistemas con la habilidad de aprender automáticamente y mejorar a partir de experiencias previas sin ser explícitamente programados para esto. Muchos de los servicios de recomendación utilizados por empresas con Netflix, YouTube o Spotify, utilizan ML para adapatarse a un usuario en particular y ofrecer una mejor experiencia más personalizada. Estos algoritmos pueden ser clasificados de la siguiente manera:
+\begin{itemize}
+	\item Aprendizaje supervisado: se refiere al aprendizaje modelos a partir de un conjunto de datos, mejor conocidos como \textit{dataset}, cuyas respuestas son conocidas con antelación y están asociadas a una etiqueta o \textit{label}. Por ejemplo, el \textit{dataset} pueden ser muchas fotografías de gatos y el \textit{label} asociado el nombre de este animal. De esta manera el modelo es entrenado para generar predicciones de datos nuevos. En la figura \ref{fig:ml_sl} se representa gráficamente el aprendizaje supervisado.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{./Figures/ml_sl.jpg}
+		\caption{Aprendizaje supervisado.}
+		\label{fig:ml_sl}
+	\end{figure}
+	
+	\item Aprendizaje no supervisado: es utilizado cuando los datos utilizados para el aprendizaje no tienen \textit{labels}. Su objetivo principal es aprender acerca de los datos e inferir patrones sin ningún tipo de referencia sobre las respuestas esperadas. Es mayormente utilizado como parte del análisis exploratorio de datos [https://towardsdatascience.com/understanding-the-difference-between-ai-ml-and-dl-cceb63252a6c]. En la figura \ref{fig:ml_ul} se representa gráficamente el aprendizaje no supervisado.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{./Figures/ml_ul.jpg}
+		\caption{Aprendizaje no supervisado.}
+		\label{fig:ml_ul}
+	\end{figure}
+	\item Aprendizaje reforzado: es el aprendizaje mediante la interacción continua con el entorno con el método de prueba y error, y utiliza continuamente la retroalimentación de sus acciones y experiencias previas. Este tipo de aprendizaje utiliza recompensas si se realizan acciones correctas y penalizaciones si son incorrectas. En la figura \ref{fig:ml_rl} se representa gráficamente el aprendizaje reforzado.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.4]{./Figures/ml_rl.jpg}
+		\caption{Aprendizaje reforzado.}
+		\label{fig:ml_rl}
+	\end{figure}
+\end{itemize}
+
+DL es una técnica de ML  que está inspirada en la forma en la que el cerebro humano filtra información. Como DL procesa información de manera similar al cerebro humano sus aplicaciones son tareas que un humano generalmente realiza, como distinguir entre un peatón o un poste de luz en el caso de automóviles autónomos. El componente principal de DL son las redes neuronales artificiales, que son capas de nodos interconectadas, donde existen una capa de entrada, una o varias capas ocultas y una capa de salida. En la figura \ref{fig:neural_network} se puede observar la arquitectura de una red neuronal artificial.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.4]{./Figures/neural_network.png}
+	\caption{Arquitectura de una red neuronal artificial.}
+	\label{fig:neural_network}
+\end{figure}
+
+Cada uno de los nodos de las capas ocultas y de salida, tienen como entrada la salida de los nodos anteriores multiplicadas por unos términos denominados pesos o \textit{weigths} y que sumados junto a otro término llamado sesgo o \textit{bias} pasan por una función de activación no lineal para generar su salida. En la figura \ref{fig:neural_network_node} se visualizar un nodo de las capas ocultas o de salida.
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{./Figures/neural_network_node.png}
+	\caption{Nodo de una red neuronal artificial.}
+	\label{fig:neural_network_node}
+\end{figure}
+
+%----------------------------------------------------------------------------------------
 \section{Redes neuronales convolucionales}
+También conocidas como CNN (\textit{Convolutional Neural Networks}, Redes Neuronales Convolucionales) o ConvNet, son un algoritmo de DL que están orientadas a recibir como entrada una, asignarle \textit{weights} y \textit{biases} entrenables a varios aspectos/objetos en la imagen para poder diferenciarlas unas de otras. Su uso reduce el pre procesamiento de las imágenes de entrada con respecto a otros modelos de clasificación, ya que los filtros necesarios son incorporados en su arquitectura y tienen la habilidad de ser entrenados.
+
+Computacionalmente una imagen puede ser muy dificil de procesar, esto depende del espacio de colores donde se encuentra [ref] y las dimensiones que posee. Por ejemplo una imagen RGB (\textit{Red Green Blue}, Rojo Verde Azul) y de dimensiones 1920x1080 pixeles, tiene un tamaño de 6220800 bytes. El objetivo principal de las CNN es reducir la dimensionalidad de las imágenes de entrada, de tal forma que sean más fáciles de procesar y no pierdan sus características o \textit{features} principales que son críticas para obtener una buena predicción.
+
+La arquitectura de una CNN es independiente del tipo de aplicación, donde las capas que lo componen son elegidas en función de los objetivos que se persiguen. En la figura \ref{fig:cnn_arch} se puede observar la arquitectura de una CNN para clasificar digitos escritos a mano.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.35]{./Figures/cnn_arch.jpeg}
+	\caption{CNN para clasificar digitos escritos a mano.}
+	\label{fig:cnn_arch}
+\end{figure}
+
+En la arquitectura de la figura \ref{fig:cnn_arch} se pueden observar tres capas principales para construir una CNN: capa de convoluciones, capa de \textit{pooling} y capa \textit{fully-connected}.
+
+\subsection{Capa de convoluciones}
+Esta capa esta encargada de aplicar la operación de convolución sobre las imágenes de entrada para encontrar patrones que más adelante permitirán clasificarla. La convolución de una imagen con un \textit{kernel} no es más que la aplicación del operador punto entre ambos. Este tipo de capas se definen por:´
+\begin{itemize}
+	\item El número de los \textit{kernels} o filtros que se aplican a la imagen, que es el número de matrices por las que se van a convolucionar las imágenes de entrada.
+	\item El tamaño de los \textit{kernels}, donde casi siempre tienen dimensiones cuadradas e impares como 3x3 o 5x5.
+	\item El \textit{stride} o paso, se refiere a la forma en como el \textit{kernel} recorre la imagen.
+\end{itemize}
+
+En la figura \ref{fig:cnn_conv} se puede observar como un 
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.7]{./Figures/cnn_conv.png}
+	\caption{Convolución de una entrada de 3x3 con un \textit{kernel} de 2x2 y \textit{stride} de 1.}
+	\label{fig:cnn_conv}
+\end{figure}
+
+\subsection{Capa de \textit{pooling}}
+Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos de mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio.
+
+
+
+\subsection{Capa \textit{fully-connected}}
 
 %----------------------------------------------------------------------------------------
 \section{Servicios en la nube}
@@ -81,7 +167,7 @@ En la figura \ref{fig:cloud_services} se puede observar las diferencias entre es
 
 
 %----------------------------------------------------------------------------------------
-\section{Estado del arte}
+\section{Estado del arte}1
 
 %----------------------------------------------------------------------------------------
 \section{Objetivos y alcance}
