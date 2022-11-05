@@ -1,7 +1,6 @@
 \texttt{•}% Chapter 1
 
 \chapter{Introducción general} % Main chapter title
-
 \label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
 \label{IntroGeneral}
 
@@ -18,21 +17,6 @@
 %----------------------------------------------------------------------------------------
 
 %\section{Introducción}
-
-%----------------------------------------------------------------------------------------
-\section{Deteccion facial}
-La vision artificial es un campo cientifico interdisciplinario que se encarga de como los sistemas computacionales pueden obtener un entendimiento de alto nivel de imagenes y videos digitales, para comprender y automatizar tareas como lo haria un sistema de vision humano. Las tareas que ejecuta un sistema de vision artificial son de adquisicion, procesamiento, analisis y entendimiento de imagenes. Un sistema de vision artificial esta compuesto de los siguientes elementos.
-
-% hablar de los campos de estudio %
-
-Uno de los campos de estudio mas importantes de la vision artificial es la deteccion facial. La deteccion facial puede ser considerada como un caso particular de la deteccion de objetos y tiene los objetivos de detectar y localizar todos los rostros humanos contenidos en una imagen digital. En la figura ...
-
-% poner imagen %
-
-Hoy en dia, muchos dispositivos comerciales y profesionales como smartphones, tablets y robots, utilizan la deteccion facial como primer paso para otro tipo de aplicaciones mas complejas, entre las que destacan:
-- reconocimiento facial,
-- computacion afectiva,
-- grabacion de video inteligente
 
 %----------------------------------------------------------------------------------------
 \section{Inteligencia Artificial, Aprendizaje Automatico y Aprendizaje Profundo}
@@ -131,11 +115,46 @@ En la figura \ref{fig:cnn_conv} se puede observar como un
 \end{figure}
 
 \subsection{Capa de \textit{pooling}}
-Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos de mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio.
+Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio. Existen dos tipos de dos tipos: \textit{max pooling} y \textit{Average pooling}. El primero retorna el valor maximo de una porcion de la imagen cubierta por el \textit{kernel} y el segundo el valor promedio o \textit{average}. \textit{Max pooling} tambien funciona como supresor de ruido al mismo tiempo que reduce la dimensionalidad. Mientras que \textit{average pooling} solo sirve para reducir la dimensionalidad. En la figura \ref{fig:cnn_pool} se pueden observar estos tipos de \textit{pooling}.
 
-
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{./Figures/cnn_pool.png}
+	\caption{Tipos de \textit{pooling}.}
+	\label{fig:cnn_pool}
+\end{figure}
 
 \subsection{Capa \textit{fully-connected}}
+Tambien conocida como capa lineal o FC (\textit{Fully Connected}, Totalmente Conectada), es simplemente una red neuronal artificial como la
+mostrada en la seccion anterior y se utiliza despues de que las capas de convolucion y \textit{pooling} desglosan los \textit{features} mas importantes presentes en la imagen de entrade  la CNN. La capa FC brinda laas probabilidades finales para cada \textit{label} esperado. 
+
+%----------------------------------------------------------------------------------------
+\section{Vision artificial}
+La vision artificial o \textit{computer vision} es un campo cientifico interdisciplinario que se encarga de como los sistemas computacionales pueden obtener un entendimiento de alto nivel de imagenes y videos digitales, para comprender y automatizar tareas como lo haria un sistema de vision humano. Las tareas que ejecuta un sistema de vision artificial son de adquisicion, procesamiento, analisis y entendimiento de imagenes. En la figura \ref{fig:mv_comp} se pueden apreciar los componentes de un sistema de vision artificial y un sistema de vision humano.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{./Figures/mv_comp.png}
+	\caption{Componentes de un sistema de vision artificial y un sistemad de vision humano.}
+	\label{fig:mv_comp}
+\end{figure}
+
+% hablar de los campos de estudio %
+
+\subsection{Deteccion facial}
+Uno de los campos de estudio mas importantes de la vision artificial es la deteccion facial. La deteccion facial puede ser considerada como un caso particular de la deteccion de objetos y tiene los objetivos de detectar y localizar todos los rostros humanos contenidos en una imagen digital. En la figura \ref{fig:mv_fd} se puede observar una imagen procesada por un sistema de deteccion facial.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.5]{./Figures/mv_fd.jpeg}
+	\caption{Imagen procesada por un sistema de deteccion facial.}
+	\label{fig:mv_fd}
+\end{figure}
+
+Hoy en dia, muchos dispositivos comerciales y profesionales como smartphones, tablets y robots, utilizan la deteccion facial como primer paso para otro tipo de aplicaciones mas complejas, entre las que destacan: reconocimento facial, computacion afectiva y grabacion de video inteligente.
+
+\subsection{Vision artificial embebida}
+
 
 %----------------------------------------------------------------------------------------
 \section{Servicios en la nube}
@@ -164,10 +183,24 @@ En la figura \ref{fig:cloud_services} se puede observar las diferencias entre es
 
 %----------------------------------------------------------------------------------------
 \section{Motivacion}
+Gracias a la amplia gama de platarformas de hardware y la disponibilidad de bibliotecas de codigo abierto para implementar AI, ML y DL, ademas de la difusion de informacion en foros y sitios web especializados, es posible desarrollar sistemas de vision artificial personalizados para distintos tipos de arquitecturas [nwengineeringllc.com/article/computer-vision-in-embedded-systems-and-ai-platforms.php]. 
 
+Estas bibliotecas de codigo para implementar vision artificial no suelen ser aptas para cualquier dispositivo, ya que son, en la mayoria de los casos, muy grandes en tamano y requieren de una capacidad de procesamiento lo suficientemente grande para ejecutarse en tiempo real. Pero los constantes esfuerzos de las empresas para ofrecer \textit{frameworks} optmizados que reducen el tamano y poder de procesamiento necesarios para ejecutar estos algoritmos, la integracion de aceleradores de hardware para redes neuronales y DSP (\textit{Digital Signal Processor, Procesador Digital de Senales}) en SoCs actuales (\textit{System on a Chip}, Sistema en un Chip) y el estudio de nuevas y mejoradas arquitecturas para vision artificial basadas en CNN, permiten el desarrollo de dispositivos emebebidos con la capacidad de ejecutar modelos de vision artificial. Algunas de sus aplicaciones mas importantes son: industria 4.0, seguridad, vehiculos autonomos y robotica.
+
+La motivacion principal de este trabajo fue desarrollar un sistema embebido de bajo costo economico, bajo consumo energetico y de codigo abierto, que integre algoritmos de DL para vision artificial enfocado a la tarea de deteccion facial.
+
+Una motivacion adicional fue integrar otra tecnologia actual como es IoT (\textit{Internet of Things}, Internet de las Cosas), para trabajar en conjunto con los algoritmos de vision artificial. Asi las aplicaciones que se pueden obtener son mas versatiles a la hora de su implementacion en entornos urbanos. 
 
 %----------------------------------------------------------------------------------------
-\section{Estado del arte}1
+\section{Estado del arte}
+Como antecedente existe un trabajo denominado "A New IoT Combined Face Detection of People by Using Computer Vision for Security Application" de ... El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electronico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infra Rojo) y una camara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de deteccion facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un telefono movil con ayuda de la aplicacion Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.3]{./Figures/soa_arch.png}
+	\caption{Imagen procesada por un sistema de deteccion facial.}
+	\label{fig:soa_arch}
+\end{figure}
 
 %----------------------------------------------------------------------------------------
 \section{Objetivos y alcance}
