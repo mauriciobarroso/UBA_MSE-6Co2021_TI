@@ -1,12 +1,12 @@
 \texttt{•}% Chapter 1
 
 \chapter{Introducción general} % Main chapter title
-\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1} 
+\label{Chapter1} % For referencing the chapter elsewhere, use \ref{Chapter1}
 \label{IntroGeneral}
 
 %----------------------------------------------------------------------------------------
 
-% Define some commands to keep the formatting separated from the content 
+% Define some commands to keep the formatting separated from the content
 \newcommand{\keyword}[1]{\textbf{#1}}
 \newcommand{\tabhead}[1]{\textbf{#1}}
 \newcommand{\code}[1]{\texttt{#1}}
@@ -16,12 +16,12 @@
 
 %----------------------------------------------------------------------------------------
 
-%\section{Introducción}
+En este capítulo se presentan conceptos básicos sobre las tecnologías y técnicas que fueron utilizadas en el desarrollo del trabajo. Se abordan nociones sobre inteligencia artificial, aprendizaje automático, aprendizaje profundo, redes neuronales convolucionales, visión artificial y servicios en la nube. También se citan trabajos anteriores que inspiraron a este, las motivaciones para llevarlo a cabo junto a sus objetivos y alcances.
 
 %----------------------------------------------------------------------------------------
-\section{Inteligencia Artificial, Aprendizaje Automatico y Aprendizaje Profundo}
+\section{Inteligencia Artificial, Aprendizaje Automático y Aprendizaje Profundo}
 
-AI (\textit{Artificial Intelligence}, Intelegencia Artificial), ML (\textit{Machine Learning}, Aprendizaje Automatico) y DL (\textit{Deep Learning}, Aprendizaje Profundo), son terminos muy utilizados hoy en dia en el mundo del desarrollo tecnologico [ref]. Aunque estos terminos son muy parecidos, entre ellos existen dependencias que pueden ser visulizadas con ayuda de la figura \ref{fig:ai_ml_dl}.
+AI (\textit{Artificial Intelligence}, Inteligencia Artificial), ML (\textit{Machine Learning}, Aprendizaje Automático) y DL (\textit{Deep Learning}, Aprendizaje Profundo), son términos muy utilizados hoy en día en el mundo del desarrollo tecnológico [ref]. Aunque estos términos son muy parecidos, entre ellos existen dependencias que pueden ser visualizadas con ayuda de la figura \ref{fig:ai_ml_dl}.
 
 \begin{figure}[h]
 	\centering
@@ -30,15 +30,15 @@ AI (\textit{Artificial Intelligence}, Intelegencia Artificial), ML (\textit{Mach
 	\label{fig:ai_ml_dl}
 \end{figure}
 
-AI es un area de la computacion que permite a los sistemas computacionales imitar la inteligencia humana para entender su entorno y tomar acciones que maximicen sus posibilidades de lograr sus objetivos [ref]. Sus aplicaciones más importante se ecuentran en la áreas de comercio, educación, robótica, salud, agricultura, automotriz y finanzas[https://www.simplilearn.com/tutorials/artificial-intelligence-tutorial/artificial-intelligence-applications]. Todos los sistemas de inteligencia artificial reales e hipotéticos pueden ser clasificados en alguno de los siguientes tipos:
+AI es un área de la computación que permite a los sistemas computacionales imitar la inteligencia humana para entender su entorno y tomar acciones que maximicen sus posibilidades de lograr sus objetivos [ref]. Sus aplicaciones más importante se ecuentran en la áreas de comercio, educación, robótica, salud, agricultura, automotriz y finanzas[https://www.simplilearn.com/tutorials/artificial-intelligence-tutorial/artificial-intelligence-applications]. Todos los sistemas de inteligencia artificial reales e hipotéticos pueden ser clasificados en alguno de los siguientes tipos:
 \begin{itemize}
-	\item ANI (\textit{Artificial Narrow Intelligence, Inteligencia Artificial Estrecha}): también conocida como inteligencia artificial débil, su objetivo es llevar a cabo un solo tipo de tarea. Estos sistemas no poseen consciencia y no son manejados por sentimientos como lo haría un humano. Algunos ejemplos de ANI son los chat bots o los automóviles autónomos.
-	\item AGI (\textit{Artificial General Intelligence}, Inteligencia Artificial General): también conocida como inteligencia artificial fuerte, es un concepto en el que las máquinas exhiben inteligencia humana. Estos sistemas tendrían la capacidad de aprender, entender y actuar de tal manera que sería indistinguible a un humano. AIG actualmente no existe, pero es utilizado en industrias como el cine 
+	\item ANI (\textit{Artificial Narrow Intelligence, Inteligencia Artificial Estrecha}): también conocida como inteligencia artificial débil, su objetivo es llevar a cabo un solo tipo de tarea. Estos sistemas no poseen conciencia y no son manejados por sentimientos como lo haría un humano. Algunos ejemplos de ANI son los \textit{chatbots } o los automóviles autónomos.
+	\item AGI (\textit{Artificial General Intelligence}, Inteligencia Artificial General): también conocida como inteligencia artificial fuerte, es un concepto en el que las máquinas exhiben inteligencia humana. Estos sistemas tendrían la capacidad de aprender, entender y actuar de tal manera que sería indistinguible a un humano. AIG actualmente no existe, pero es utilizado en industrias como el cine
 	\item ASI (\textit{Artificial Super Intelligence}, Super Inteligencia Artificial): ASI también forma parte de la inteligencia artificial fuerte. Se le considera muy poderosa por ser capaz de volverse consciente y autónoma.
-No solo replica el comportamiento humano, sino que lo supera. Puede pensar mejor y tener más habilidades. Sin embargo, esta tecnología aún está en desarrollo.
+No sólo replica el comportamiento humano, sino que lo supera. Puede pensar mejor y tener más habilidades. Sin embargo, esta tecnología aún está en desarrollo.
 \end{itemize}
 
-ML es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos para contruir sistemas con la habilidad de aprender automáticamente y mejorar a partir de experiencias previas sin ser explícitamente programados para esto. Muchos de los servicios de recomendación utilizados por empresas con Netflix, YouTube o Spotify, utilizan ML para adapatarse a un usuario en particular y ofrecer una mejor experiencia más personalizada. Estos algoritmos pueden ser clasificados de la siguiente manera:
+ML es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos para construir sistemas con la habilidad de aprender automáticamente y mejorar a partir de experiencias previas sin ser explícitamente programados para esto. Muchos de los servicios de recomendación utilizados por empresas como Netflix, YouTube o Spotify, utilizan ML para adaptarse a un usuario en particular y ofrecer una mejor experiencia más personalizada. Estos algoritmos pueden ser clasificados de la siguiente manera:
 \begin{itemize}
 	\item Aprendizaje supervisado: se refiere al aprendizaje modelos a partir de un conjunto de datos, mejor conocidos como \textit{dataset}, cuyas respuestas son conocidas con antelación y están asociadas a una etiqueta o \textit{label}. Por ejemplo, el \textit{dataset} pueden ser muchas fotografías de gatos y el \textit{label} asociado el nombre de este animal. De esta manera el modelo es entrenado para generar predicciones de datos nuevos. En la figura \ref{fig:ml_sl} se representa gráficamente el aprendizaje supervisado.
 	\begin{figure}[h]
@@ -64,7 +64,7 @@ ML es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos p
 	\end{figure}
 \end{itemize}
 
-DL es una técnica de ML  que está inspirada en la forma en la que el cerebro humano filtra información. Como DL procesa información de manera similar al cerebro humano sus aplicaciones son tareas que un humano generalmente realiza, como distinguir entre un peatón o un poste de luz en el caso de automóviles autónomos. El componente principal de DL son las redes neuronales artificiales, que son capas de nodos interconectadas, donde existen una capa de entrada, una o varias capas ocultas y una capa de salida. En la figura \ref{fig:neural_network} se puede observar la arquitectura de una red neuronal artificial.
+DL es una técnica de ML  que está inspirada en la forma en la que el cerebro humano filtra información. Cómo DL procesa información de manera similar al cerebro humano sus aplicaciones son tareas que un humano generalmente realiza, como distinguir entre un peatón o un poste de luz en el caso de automóviles autónomos. El componente principal de DL son las redes neuronales artificiales, que son capas de nodos interconectados, donde existen una capa de entrada, una o varias capas ocultas y una capa de salida. En la figura \ref{fig:neural_network} se puede observar la arquitectura de una red neuronal artificial.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{./Figures/neural_network.png}
@@ -72,7 +72,7 @@ DL es una técnica de ML  que está inspirada en la forma en la que el cerebro h
 	\label{fig:neural_network}
 \end{figure}
 
-Cada uno de los nodos de las capas ocultas y de salida, tienen como entrada la salida de los nodos anteriores multiplicadas por unos términos denominados pesos o \textit{weigths} y que sumados junto a otro término llamado sesgo o \textit{bias} pasan por una función de activación no lineal para generar su salida. En la figura \ref{fig:neural_network_node} se visualizar un nodo de las capas ocultas o de salida.
+Cada uno de los nodos de las capas ocultas y de salida, tienen como entrada la salida de los nodos anteriores multiplicadas por unos términos denominados pesos o \textit{weights} y que sumados junto a otro término llamado sesgo o \textit{bias} pasan por una función de activación no lineal para generar su salida. En la figura \ref{fig:neural_network_node} se visualiza un nodo de las capas ocultas o de salida.
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.25]{./Figures/neural_network_node.png}
@@ -84,28 +84,28 @@ Cada uno de los nodos de las capas ocultas y de salida, tienen como entrada la s
 \section{Redes neuronales convolucionales}
 También conocidas como CNN (\textit{Convolutional Neural Networks}, Redes Neuronales Convolucionales) o ConvNet, son un algoritmo de DL que están orientadas a recibir como entrada una, asignarle \textit{weights} y \textit{biases} entrenables a varios aspectos/objetos en la imagen para poder diferenciarlas unas de otras. Su uso reduce el pre procesamiento de las imágenes de entrada con respecto a otros modelos de clasificación, ya que los filtros necesarios son incorporados en su arquitectura y tienen la habilidad de ser entrenados.
 
-Computacionalmente una imagen puede ser muy dificil de procesar, esto depende del espacio de colores donde se encuentra [ref] y las dimensiones que posee. Por ejemplo una imagen RGB (\textit{Red Green Blue}, Rojo Verde Azul) y de dimensiones 1920x1080 pixeles, tiene un tamaño de 6220800 bytes. El objetivo principal de las CNN es reducir la dimensionalidad de las imágenes de entrada, de tal forma que sean más fáciles de procesar y no pierdan sus características o \textit{features} principales que son críticas para obtener una buena predicción.
+Computacionalmente una imagen puede ser muy difícil de procesar, esto depende del espacio de colores donde se encuentra [ref] y las dimensiones que posee. Por ejemplo una imagen RGB (\textit{Red Green Blue}, Rojo Verde Azul) y de dimensiones 1920x1080 pixeles, tiene un tamaño de 6220800 bytes. El objetivo principal de las CNN es reducir la dimensionalidad de las imágenes de entrada, de tal forma que sean más fáciles de procesar y no pierdan sus características o \textit{features} principales que son críticas para obtener una buena predicción.
 
-La arquitectura de una CNN es independiente del tipo de aplicación, donde las capas que lo componen son elegidas en función de los objetivos que se persiguen. En la figura \ref{fig:cnn_arch} se puede observar la arquitectura de una CNN para clasificar digitos escritos a mano.
+La arquitectura de una CNN es independiente del tipo de aplicación, donde las capas que lo componen son elegidas en función de los objetivos que se persiguen. En la figura \ref{fig:cnn_arch} se puede observar la arquitectura de una CNN para clasificar dígitos escritos a mano.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.35]{./Figures/cnn_arch.jpeg}
-	\caption{CNN para clasificar digitos escritos a mano.}
+	\caption{CNN para clasificar dígitos escritos a mano.}
 	\label{fig:cnn_arch}
 \end{figure}
 
 En la arquitectura de la figura \ref{fig:cnn_arch} se pueden observar tres capas principales para construir una CNN: capa de convoluciones, capa de \textit{pooling} y capa \textit{fully-connected}.
 
 \subsection{Capa de convoluciones}
-Esta capa esta encargada de aplicar la operación de convolución sobre las imágenes de entrada para encontrar patrones que más adelante permitirán clasificarla. La convolución de una imagen con un \textit{kernel} no es más que la aplicación del operador punto entre ambos. Este tipo de capas se definen por:´
+Esta capa es la encargada de aplicar la operación de convolución sobre las imágenes de entrada para encontrar patrones que más adelante permitirán clasificarlas. La convolución de una imagen con un \textit{kernel} no es más que la aplicación del operador punto entre ambos. Este tipo de capas se definen por:´
 \begin{itemize}
 	\item El número de los \textit{kernels} o filtros que se aplican a la imagen, que es el número de matrices por las que se van a convolucionar las imágenes de entrada.
 	\item El tamaño de los \textit{kernels}, donde casi siempre tienen dimensiones cuadradas e impares como 3x3 o 5x5.
 	\item El \textit{stride} o paso, se refiere a la forma en como el \textit{kernel} recorre la imagen.
 \end{itemize}
 
-En la figura \ref{fig:cnn_conv} se puede observar como un 
+En la figura \ref{fig:cnn_conv} se puede observar como un
 
 \begin{figure}[h]
 	\centering
@@ -115,7 +115,7 @@ En la figura \ref{fig:cnn_conv} se puede observar como un
 \end{figure}
 
 \subsection{Capa de \textit{pooling}}
-Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio. Existen dos tipos de dos tipos: \textit{max pooling} y \textit{Average pooling}. El primero retorna el valor maximo de una porcion de la imagen cubierta por el \textit{kernel} y el segundo el valor promedio o \textit{average}. \textit{Max pooling} tambien funciona como supresor de ruido al mismo tiempo que reduce la dimensionalidad. Mientras que \textit{average pooling} solo sirve para reducir la dimensionalidad. En la figura \ref{fig:cnn_pool} se pueden observar estos tipos de \textit{pooling}.
+Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio. Existen dos tipos de dos tipos: \textit{max pooling} y \textit{Average pooling}. El primero retorna el valor máximo de una porción de la imagen cubierta por el \textit{kernel} y el segundo el valor promedio o \textit{average}. \textit{Max pooling} también funciona como supresor de ruido al mismo tiempo que reduce la dimensionalidad. Mientras que \textit{average pooling} solo sirve para reducir la dimensionalidad. En la figura \ref{fig:cnn_pool} se pueden observar estos tipos de \textit{pooling}.
 
 \begin{figure}[h]
 	\centering
@@ -125,52 +125,49 @@ Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionali
 \end{figure}
 
 \subsection{Capa \textit{fully-connected}}
-Tambien conocida como capa lineal o FC (\textit{Fully Connected}, Totalmente Conectada), es simplemente una red neuronal artificial como la
-mostrada en la seccion anterior y se utiliza despues de que las capas de convolucion y \textit{pooling} desglosan los \textit{features} mas importantes presentes en la imagen de entrade  la CNN. La capa FC brinda laas probabilidades finales para cada \textit{label} esperado. 
+También conocida como capa lineal o FC (\textit{Fully Connected}, Totalmente Conectada), es simplemente una red neuronal artificial como la
+mostrada en la sección anterior y se utiliza después de que las capas de convolución y \textit{pooling} desglosan los \textit{features} más importantes presentes en la imagen de entrada  la CNN. La capa FC brinda las probabilidades finales para cada \textit{label} esperado.
 
 %----------------------------------------------------------------------------------------
 \section{Vision artificial}
-La vision artificial o \textit{computer vision} es un campo cientifico interdisciplinario que se encarga de como los sistemas computacionales pueden obtener un entendimiento de alto nivel de imagenes y videos digitales, para comprender y automatizar tareas como lo haria un sistema de vision humano. Las tareas que ejecuta un sistema de vision artificial son de adquisicion, procesamiento, analisis y entendimiento de imagenes. En la figura \ref{fig:mv_comp} se pueden apreciar los componentes de un sistema de vision artificial y un sistema de vision humano.
+La visión artificial o \textit{computer vision} es un campo científico interdisciplinario que se encarga de cómo los sistemas computacionales pueden obtener un entendimiento de alto nivel de imágenes y videos digitales, para comprender y automatizar tareas como lo haría un sistema de visión humano. Las tareas que ejecuta un sistema de visión artificial son de adquisición, procesamiento, análisis y entendimiento de imágenes. En la figura \ref{fig:mv_comp} se pueden apreciar los componentes de un sistema de visión artificial y un sistema de visión humano.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{./Figures/mv_comp.png}
-	\caption{Componentes de un sistema de vision artificial y un sistemad de vision humano.}
+	\caption{Componentes de un sistema de visión artificial y un sistema de visión humano.}
 	\label{fig:mv_comp}
 \end{figure}
 
 % hablar de los campos de estudio %
 
-\subsection{Deteccion facial}
-Uno de los campos de estudio mas importantes de la vision artificial es la deteccion facial. La deteccion facial puede ser considerada como un caso particular de la deteccion de objetos y tiene los objetivos de detectar y localizar todos los rostros humanos contenidos en una imagen digital. En la figura \ref{fig:mv_fd} se puede observar una imagen procesada por un sistema de deteccion facial.
+\subsection{Detección facial}
+Uno de los campos de estudio más importantes de la visión artificial es la detección facial. La detección facial puede ser considerada como un caso particular de la detección de objetos y tiene los objetivos de detectar y localizar todos los rostros humanos contenidos en una imagen digital. En la figura \ref{fig:mv_fd} se puede observar una imagen procesada por un sistema de detección facial.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{./Figures/mv_fd.jpeg}
-	\caption{Imagen procesada por un sistema de deteccion facial.}
+	\caption{Imagen procesada por un sistema de detección facial.}
 	\label{fig:mv_fd}
 \end{figure}
 
-Hoy en dia, muchos dispositivos comerciales y profesionales como smartphones, tablets y robots, utilizan la deteccion facial como primer paso para otro tipo de aplicaciones mas complejas, entre las que destacan: reconocimento facial, computacion afectiva y grabacion de video inteligente.
-
-\subsection{Vision artificial embebida}
-
+Hoy en día, muchos dispositivos comerciales y profesionales como smartphones, tablets y robots, utilizan la detección facial como primer paso para otro tipo de aplicaciones más complejas, entre las que destacan: reconocimiento facial, computación afectiva y grabación de vídeo inteligente.
 
 %----------------------------------------------------------------------------------------
 \section{Servicios en la nube}
-El termino servicios en la nube hace referencia a un amplio rango de servicios ofrecidos bajo demanda a companias y usuarios a traves de internet. Estos servicios estan disenados para proveer de una manera facil y asequible acceso a aplicaciones y recursos, sin la necesidad de una infrastructura o hardware propios.
+El término servicios en la nube hace referencia a un amplio rango de servicios ofrecidos bajo demanda a compañías y usuarios a través de internet. Estos servicios están diseñados para proveer de una manera fácil y asequible acceso a aplicaciones y recursos, sin la necesidad de una infraestructura o hardware propios.
 
-Los servicios en la nube son administrados totalmente por proveedores de computacion en la nube [ref]. Estos se encuentran disponibles para los usuarios desde los servidores de los proveedores, por lo que no es necesario que una empresa aloje aplicaciones en sus propios servidores.
+Los servicios en la nube son administrados totalmente por proveedores de computación en la nube [ref]. Estos se encuentran disponibles para los usuarios desde los servidores de los proveedores, por lo que no es necesario que una empresa aloje aplicaciones en sus propios servidores.
 
-De manera general, existen tres tipos basicos de servicios en la nube [ref]:
+De manera general, existen tres tipos básicos de servicios en la nube [ref]:
 
 \begin{itemize}
-	\item SaaS (\textit{Software as a Service}, Software como un Servicio): en este servicio el proveedor solo proporciona el software o aplicaciones en la nube mediante internet. Los clientes tienen acceso a traves de APIs (\textit{Application Programming Interface}, Interfaz de Programacion de Aplicaciones) o a traves de la web, que les permite interactuar de manera sencilla, sin la necesidad de gestionar, instalar ni actulizar el software. 
-	\item IaaS (\textit{Infrastructure as a Service}, Infrastructura como un Servicio): este servicio implica la contatacion de una infraestructura de hardware a un tercero, donde varios cliente comparten los recursos de una maquina fisica. El proveedor proporciona a sus clientes el acceso a los recursos computacionales necesarios para almancenar o ejecutar tareas que pueden incluir servidores, redes, \textit{backup}, \textit{firewalls}, entre otros.
-	\item PaaS (\textit{Platform as a Service}, Plataforma como un Servicio): es un servicio que se encuentra conceptualmente entre SaaS e IaaS al eliminar la parte fisica de la infraestructura y ofrece una plataforma donde los cliente pueden crear, desarrollar, gestionar y distribuir sus aplicaciones. El proveedor es el encargado de la gestion y mantenimiento de la plataforma y permite que los clientes se dediquen exclusivamente en el desarrollo.
+	\item SaaS (\textit{Software as a Service}, Software como un Servicio): en este servicio el proveedor sólo proporciona el software o aplicaciones en la nube mediante internet. Los clientes tienen acceso a través de APIs (\textit{Application Programming Interface}, Interfaz de Programación de Aplicaciones) o a través de la web, que les permite interactuar de manera sencilla, sin la necesidad de gestionar, instalar ni actualizar el software.
+	\item IaaS (\textit{Infrastructure as a Service}, Infraestructura como un Servicio): este servicio implica la contratación de una infraestructura de hardware a un tercero, donde varios cliente comparten los recursos de una máquina física. El proveedor proporciona a sus clientes el acceso a los recursos computacionales necesarios para almacenar o ejecutar tareas que pueden incluir servidores, redes, \textit{backup}, \textit{firewalls}, entre otros.
+	\item PaaS (\textit{Platform as a Service}, Plataforma como un Servicio): es un servicio que se encuentra conceptualmente entre SaaS e IaaS al eliminar la parte física de la infraestructura y ofrece una plataforma donde los cliente pueden crear, desarrollar, gestionar y distribuir sus aplicaciones. El proveedor es el encargado de la gestión y mantenimiento de la plataforma y permite que los clientes se dediquen exclusivamente al desarrollo.
 \end{itemize}
 
-En la figura \ref{fig:cloud_services} se puede observar las diferencias entre estos servicios en funcion de los elementos que pueden gestionar.
+En la figura \ref{fig:cloud_services} se puede observar las diferencias entre estos servicios en función de los elementos que pueden gestionar.
 
 \begin{figure}[h]
 	\centering
@@ -182,39 +179,58 @@ En la figura \ref{fig:cloud_services} se puede observar las diferencias entre es
 
 
 %----------------------------------------------------------------------------------------
-\section{Motivacion}
-Gracias a la amplia gama de platarformas de hardware y la disponibilidad de bibliotecas de codigo abierto para implementar AI, ML y DL, ademas de la difusion de informacion en foros y sitios web especializados, es posible desarrollar sistemas de vision artificial personalizados para distintos tipos de arquitecturas [nwengineeringllc.com/article/computer-vision-in-embedded-systems-and-ai-platforms.php]. 
+\section{Motivación}
+Gracias a la amplia gama de platarformas de hardware y la disponibilidad de bibliotecas de codigo abierto para implementar AI, ML y DL, ademas de la difusion de informacion en foros y sitios web especializados, es posible desarrollar sistemas de vision artificial personalizados para distintos tipos de arquitecturas [nwengineeringllc.com/article/computer-vision-in-embedded-systems-and-ai-platforms.php].
 
-Estas bibliotecas de codigo para implementar vision artificial no suelen ser aptas para cualquier dispositivo, ya que son, en la mayoria de los casos, muy grandes en tamano y requieren de una capacidad de procesamiento lo suficientemente grande para ejecutarse en tiempo real. Pero los constantes esfuerzos de las empresas para ofrecer \textit{frameworks} optmizados que reducen el tamano y poder de procesamiento necesarios para ejecutar estos algoritmos, la integracion de aceleradores de hardware para redes neuronales y DSP (\textit{Digital Signal Processor, Procesador Digital de Senales}) en SoCs actuales (\textit{System on a Chip}, Sistema en un Chip) y el estudio de nuevas y mejoradas arquitecturas para vision artificial basadas en CNN, permiten el desarrollo de dispositivos emebebidos con la capacidad de ejecutar modelos de vision artificial. Algunas de sus aplicaciones mas importantes son: industria 4.0, seguridad, vehiculos autonomos y robotica.
+Estas bibliotecas de código para implementar visión artificial no suelen ser aptas para cualquier dispositivo, ya que son, en la mayoría de los casos, muy grandes en tamaño y requieren de una capacidad de procesamiento lo suficientemente grande para ejecutarse en tiempo real. Pero los constantes esfuerzos de las empresas para ofrecer \textit{frameworks} optimizados que reducen el tamaño y poder de procesamiento necesarios para ejecutar estos algoritmos, la integración de aceleradores de hardware para redes neuronales y DSP (\textit{Digital Signal Processor, Procesador Digital de Señales}) en SoCs actuales (\textit{System on a Chip}, Sistema en un Chip) y el estudio de nuevas y mejoradas arquitecturas para visión artificial basadas en CNN, permiten el desarrollo de dispositivos embebidos con la capacidad de ejecutar modelos de visión artificial. Algunas de sus aplicaciones más importantes son: industria 4.0, seguridad, vehículos autónomos y robótica.
 
-La motivacion principal de este trabajo fue desarrollar un sistema embebido de bajo costo economico, bajo consumo energetico y de codigo abierto, que integre algoritmos de DL para vision artificial enfocado a la tarea de deteccion facial.
+La motivación principal de este trabajo fue desarrollar un sistema embebido de bajo costo económico, bajo consumo energético y de código abierto, que integre algoritmos de DL para visión artificial enfocado a la tarea de detección facial.
 
-Una motivacion adicional fue integrar otra tecnologia actual como es IoT (\textit{Internet of Things}, Internet de las Cosas), para trabajar en conjunto con los algoritmos de vision artificial. Asi las aplicaciones que se pueden obtener son mas versatiles a la hora de su implementacion en entornos urbanos. 
+Una motivación adicional fue integrar otra tecnología actual como es IoT (\textit{Internet of Things}, Internet de las Cosas), para trabajar en conjunto con los algoritmos de visión artificial. Así las aplicaciones que se pueden obtener son más versátiles a la hora de su implementación en entornos urbanos.
 
 %----------------------------------------------------------------------------------------
 \section{Estado del arte}
-Como antecedente existe un trabajo denominado "A New IoT Combined Face Detection of People by Using Computer Vision for Security Application" de ... El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electronico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infra Rojo) y una camara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de deteccion facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un telefono movil con ayuda de la aplicacion Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
+Como antecedente existe un trabajo denominado \"A New IoT Combined Face Detection of People by Using Computer Vision for Security Application\" de ... El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electrónico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infrarrojo) y una cámara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de detección facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un teléfono móvil con ayuda de la aplicación Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{./Figures/soa_arch.png}
-	\caption{Imagen procesada por un sistema de deteccion facial.}
+	\caption{Diagrama en bloques del sistema propuesto por …}
 	\label{fig:soa_arch}
 \end{figure}
 
 %----------------------------------------------------------------------------------------
 \section{Objetivos y alcance}
-El objetivo principal de este trabajo fue desarrollar un sistema embebido con la capacidad de ejecutar modelos de AI para detectar y localizar rostros humanos de imagenes digitales capturadas por su camara.
+El objetivo principal de este trabajo fue desarrollar un sistema embebido con la capacidad de ejecutar modelos de AI para detectar y localizar rostros humanos de imágenes digitales capturadas por su cámara.
 
-El alcance de este trabajo incluyo:
+El alcance de este trabajo incluyó:
 \begin{itemize}
-	\item Construccion de un prototipo de pruebas
-	\item Desarrollo e implementacion de los modelos de AI necesarios
-	\item Implementacion de los servicios en la nube necesarios
+	\item Construcción de un prototipo de pruebas
+	\item Desarrollo e implementación de los modelos de AI necesarios
+	\item Implementación de los servicios en la nube necesarios
 \end{itemize}
 %----------------------------------------------------------------------------------------
 \section{Requerimientos}
+Los requerimientos planteados para este trabajo fueron:
+\begin{enumerate}
+	\item Requerimientos funcionales
+   \begin{enumerate}
+      	\item El sistema debe detectar y contar todos los rostros existentes de las imágenes obtenidas por su cámara con ayuda de las técnicas de procesamiento de imágenes pyramid image y slidding window, y modelos de DL que alcancen una precisión de al menos 80\%.
+		\item El sistema debe conectarse a una red Wi-Fi existente a través de algún mecanismo de aprovisionamiento de credenciales de red.
+		\item El sistema debe establecer comunicación con los servidores de AWS.
+		\item El sistema debe ser alimentado mediante dos baterías AA de litio.
+		\item El sistema debe poseer mecanismos de seguridad implementados tanto en hardware como en firmware para evitar su manipulación incorrecta.
+		\item El sistema debe funcionar solamente si se detecta movimiento en el sector donde se encuentra instalada.
+	\end{enumerate}
+	\item Requerimientos no funcionales
+	\begin{enumerate}
+		\item El sistema debe tener un costo de desarrollo igual o menor a US\$200.
+		\item El sistema debe tener documentación adecuada sobre su uso y desarrollo.
+	\end{enumerate}
+\end{enumerate}
 
 
 
 %----------------------------------------------------------------------------------------
+
+
