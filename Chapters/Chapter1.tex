@@ -156,7 +156,7 @@ Plataforma como un Servicio): es un servicio que se encuentra conceptualmente en
 
 %----------------------------------------------------------------------------------------
 \section{Motivación}
-Gracias a la amplia gama de platarformas de hardware y la disponibilidad de bibliotecas de codigo abierto para implementar AI, ML y DL, ademas de la difusion de informacion en foros y sitios web especializados, es posible desarrollar sistemas de vision artificial personalizados para distintos tipos de arquitecturas [nwengineeringllc.com/article/computer-vision-in-embedded-systems-and-ai-platforms.php].
+Gracias a la amplia gama de platarformas de hardware y la disponibilidad de bibliotecas de codigo abierto para implementar AI, ML y DL, ademas de la difusion de informacion en foros y sitios web especializados, es posible desarrollar sistemas de vision artificial personalizados para distintos tipos de arquitecturas \cite{mot_emb}.
 
 Estas bibliotecas de código para implementar visión artificial no suelen ser aptas para cualquier dispositivo, ya que son, en la mayoría de los casos, muy grandes en tamaño y requieren de una capacidad de procesamiento lo suficientemente grande para ejecutarse en tiempo real. Pero los constantes esfuerzos de las empresas para ofrecer \textit{frameworks} optimizados que reducen el tamaño y poder de procesamiento necesarios para ejecutar estos algoritmos, la integración de aceleradores de hardware para redes neuronales y DSP (\textit{Digital Signal Processor, Procesador Digital de Señales}) en SoCs actuales (\textit{System on a Chip}, Sistema en un Chip) y el estudio de nuevas y mejoradas arquitecturas para visión artificial basadas en CNN, permiten el desarrollo de dispositivos embebidos con la capacidad de ejecutar modelos de visión artificial. Algunas de sus aplicaciones más importantes son: industria 4.0, seguridad, vehículos autónomos y robótica.
 
@@ -166,12 +166,13 @@ Una motivación adicional fue integrar otra tecnología actual como es IoT (\tex
 
 %----------------------------------------------------------------------------------------
 \section{Estado del arte}
-Como antecedente existe un trabajo denominado \"A New IoT Combined Face Detection of People by Using Computer Vision for Security Application\" de ... El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electrónico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infrarrojo) y una cámara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de detección facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un teléfono móvil con ayuda de la aplicación Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
+Como antecedente existe el trabajo de Ilhan Aydin y Nashwan Adnan Othman, denominado ``A new IoT combined face detection of people by using computer vision for security application
+`` \cite{soa_ref}. El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electrónico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infrarrojo) y una cámara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de detección facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un teléfono móvil con ayuda de la aplicación Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{./Figures/soa_arch.png}
-	\caption{Diagrama en bloques del sistema propuesto por …}
+	\caption{Diagrama en bloques del sistema propuesto en \cite{soa_ref}}
 	\label{fig:soa_arch}
 \end{figure}
 

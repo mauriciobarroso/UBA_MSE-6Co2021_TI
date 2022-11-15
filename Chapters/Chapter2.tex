@@ -1,6 +1,6 @@
 \chapter{Introducción específica} % Main chapter title
 
-\label{Chapter2}
+\label{Chapter2} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
 
 %----------------------------------------------------------------------------------------
 Este capítulo expone una descripción detallada del sistema, del hardware utilizado y las herramientas de  software necesarias en el desarrollo del trabajo. Se abarcan la descripción del sistema y sus componentes, los \textit{frameworks} y modelos utilizados para detección facial y las herramientas utilizadas en la web.
@@ -23,7 +23,7 @@ El componente central del sistema es la tarjeta de desarrollo ESP32-S3-DevKitC-1
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.4]{./Figures/devkit_comp.png}
+	\includegraphics[scale=0.45]{./Figures/devkit_comp.png}
 	\caption{Componentes del ESP32-S3-DevKitC-1\protect\footnotemark.}
 	\label{fig:devkit_comp}
 \end{figure}
@@ -33,7 +33,7 @@ El módulo ESP32-S3-WROOM-1-N8R8 es un potente módulo MCU (\textit{Microcontrol
 
 \begin{table}[h]
 	\centering
-	\caption[ESP32-S3-DevKitC-1 especificaciones]{Tabla de especificaciones del ESP32-S3-DevKitC-1}
+	\caption[ESP32-S3-DevKitC-1 especificaciones]{Tabla de especificaciones del ESP32-S3-DevKitC-1 \cite{devkit_info}}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
@@ -75,7 +75,9 @@ Un sensor de movimiento PIR basa su funcionamiento al detectar diferencias en la
 \end{figure}
 
 \subsubsection{Sensor IRA-S230ST01}
-El IRA-S230ST01 es un sensor PIR fabricado por la empresa Murata. Posee una alta sensibilidad y un rendimiento confiable gracias a la tecnología cerámica y la técnica de IC (\textit{Integrated Circuit}, Circuito Integrado) híbrida de Murata. Tiene además una sensibilidad mejorada a la interferencia de RF (\textit{Radio Frequency}, Radiofrecuencia). Sus aplicaciones más comunes incluyen sistemas de seguridad, aparatos de iluminación, electrodomésticos, entre otros. En la figura \ref{fig:pir_photo} se puede observar una fotografía del IRA-S230ST01.
+El IRA-S230ST01 es un sensor PIR fabricado por la empresa Murata. Posee una alta sensibilidad y un rendimiento confiable gracias a la tecnología cerámica y la técnica de IC (\textit{Integrated Circuit}, Circuito Integrado) híbrida de Murata. Tiene además una sensibilidad mejorada a la interferencia de RF (\textit{Radio Frequency}, Radiofrecuencia). Sus aplicaciones más comunes incluyen sistemas de seguridad, aparatos de iluminación, electrodomésticos, entre otros \cite{pir_info}. En la figura \ref{fig:pir_photo} se puede observar una fotografía del IRA-S230ST01.
+
+\vspace*{60 px}
 
 \begin{figure}[h]
 	\centering
@@ -85,16 +87,16 @@ El IRA-S230ST01 es un sensor PIR fabricado por la empresa Murata. Posee una alta
 \end{figure}
 \footnotetext{Imagen tomada de: \url{https://www.murata.com/en-sg/products/productdetail?partno=IRA-S230ST01}}
 
-En la tabla \ref{tab:pir_specs} se detallan sus características técnicas más importantes.
+En la tabla \ref{tab:pir_specs} se detallan sus características técnicas más importantes
 
 \begin{table}[h]
 	\centering
-	\caption[IRA-S230ST01 especificaciones]{Tabla de especificaciones del IRA-S230ST01}
+	\caption[IRA-S230ST01 especificaciones]{Tabla de especificaciones del IRA-S230ST01 \cite{pir_info}}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
 		\midrule
-		Rango de temperatura & -40 \textcelsius a 70 \textcelsius\\
+		Rango de temperatura & -40 \textcelsius  a 70 \textcelsius\\
 		SNR & 40 dB \\
 		Campo de vision & theta1=theta2=45 grados \\
 		Electrodo & (2.0x1.0mm)x2 \\
@@ -107,14 +109,16 @@ En la tabla \ref{tab:pir_specs} se detallan sus características técnicas más 
 	\label{tab:pir_specs}
 \end{table}
 
-La elección del IRA-S230ST01 como sensor PIR responde a los siguientes criterios:
+La elección del IRA-S230ST01 como sensor PIR responde a los siguientes criterios: \\
 \begin{itemize}
 	\item Marca: Murata es una marca muy reconocida en el mundo de los semiconductores y ofrece productos de muy alta calidad.
 	\item Documentación: el IRA-S230ST01 cuenta con documentación muy clara sobre sus características técnicas.
 \end{itemize}
 
 \subsubsection{Amplificador operacional TLV8544}
-El TLV8544 es un amplificador operacional cuadruple de ultra bajo consumo energético de la empresa Texas Instruments, de costo optimizado para aplicaciones de detección en equipos inalámbricos y cableados de bajo consumo. El diseño del TLV8544 minimiza el consumo energético en dispositivos como sensores de movimiento para sistemas de seguridad, donde el tiempo de vida de la batería que los alimenta es crítico. Su uso más común es en configuraciones de amplificadores de transimpedancia con resistencias de \textit{feedback} en el orden de los Mega ohms. Adicionalmente, tiene protección contra EMI (\textit{Electromagnetic Interference}, Interferencia Electromagnética) que reduce la sensibilidad a las señales de RF no deseadas de fuentes como teléfonos móviles, Wi-Fi y transmisores de radio. En la figura \ref{fig:opamp_photo} se puede observar una fotografía del TLV8544 en un encapsulado TSSOP-14.
+El TLV8544 es un amplificador operacional cuadruple de ultra bajo consumo energético de la empresa Texas Instruments, de costo optimizado para aplicaciones de detección en equipos inalámbricos y cableados de bajo consumo. El diseño del TLV8544 minimiza el consumo energético en dispositivos como sensores de movimiento para sistemas de seguridad, donde el tiempo de vida de la batería que los alimenta es crítico. Su uso más común es en configuraciones de amplificadores de transimpedancia con resistencias de \textit{feedback} en el orden de los Mega ohms. Adicionalmente, tiene protección contra EMI (\textit{Electromagnetic Interference}, Interferencia Electromagnética) que reduce la sensibilidad a las señales de RF no deseadas de fuentes como teléfonos móviles, Wi-Fi y transmisores de radio \cite{opamp_info}. En la figura \ref{fig:opamp_photo} se puede observar una fotografía del TLV8544 en un encapsulado TSSOP-14.
+
+\vspace*{50 px}
 
 \begin{figure}[h]
 	\centering
@@ -128,7 +132,7 @@ Las características técnicas más importantes del TLV8544 se presentan en la t
 
 \begin{table}[h]
 	\centering
-	\caption[TLV8544 especificaciones]{Tabla de especificaciones del TLV8544}
+	\caption[TLV8544 especificaciones]{Tabla de especificaciones del TLV8544 \cite{opamp_info}}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
@@ -160,7 +164,7 @@ Otro de los componentes principales del sistema es la cámara, que permite obten
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[scale=0.5]{./Figures/camera_blocks.png}
+	\includegraphics[scale=0.6]{./Figures/camera_blocks.png}
 	\caption{Componentes del módulo ESP-LyraP-CAM\protect\footnotemark.}
 	\label{fig:camera_comp}
 \end{figure}
@@ -170,7 +174,7 @@ El OV2640 de la empresa OmniVision es un sensor CMOS (\textit{Complementary Meta
 
 \begin{table}[h]
 	\centering
-	\caption[OV2640 especificaciones]{Tabla de especificaciones del OV2640}
+	\caption[OV2640 especificaciones]{Tabla de especificaciones del OV2640 \cite{camera_info}}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
@@ -200,12 +204,12 @@ Los criterios para utilizar este módulo como cámara del sistema son los siguie
 
 %----------------------------------------------------------------------------------------
 \section{MTCNN (\textit{Multi-Task Cascaded Convolutional Networks}, Redes Convolucionales en Cascada Multitarea)}
-MTCNN es un \textit{framework} basado el el \textit{paper} Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks” by Zhang, Zhang and Zhifeng, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNS en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
+MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNS en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{./Figures/mtcnn_pipe.png}
-	\caption{\textit{Pipeline de MTCNN}.}
+	\caption{\textit{Pipeline} de MTCNN \cite{mtcnn_info}.}
 	\label{fig:mtcnn_pipe}
 \end{figure}
 
@@ -217,7 +221,7 @@ También conocida como \textit{Proposal Network} o red de propuestas, esta etapa
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.25]{./Figures/mtcnn_pnet.png}
-	\caption{\textit{Arquitectura de P-Net}.}
+	\caption{Arquitectura de P-Net \cite{mtcnn_info}.}
 	\label{fig:mtcnn_pnet}
 \end{figure}
 	
@@ -227,7 +231,7 @@ Esta es una CNN denominada \textit{Refine Network} o red de refinamiento. Los ca
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.25]{./Figures/mtcnn_rnet.png}
-	\caption{\textit{Arquitectura de R-Net}.}
+	\caption{Arquitectura de R-Net \cite{mtcnn_info}.}
 	\label{fig:mtcnn_rnet}
 \end{figure}
 
@@ -237,7 +241,7 @@ Conocida como \textit{Output Network} o red de salida, es muy similar a R-Net, p
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.3]{./Figures/mtcnn_onet.png}
-	\caption{\textit{Arquitectura de O-Net}.}
+	\caption{Arquitectura de O-Net \cite{mtcnn_info}.}
 	\label{fig:mtcnn_onet}
 \end{figure}
 
@@ -251,7 +255,7 @@ Como se explicó en los puntos anteriores, MTCNN se compone de tres etapas que f
 
 %----------------------------------------------------------------------------------------
 \section{TensorFlow}
-TensorFlow es una plataforma de código abierto para ML. Tiene un ecosistema completo y flexible de herramientas, bibliotecas y recursos comunitarios que permite a los desarrolladores crear e implementar fácilmente aplicaciones basadas en ML. Fue originalmente desarrollado por investigadores e ingenieros que trabajaban en el equipo Google Brain dentro de la organización de investigación de inteligencia artificial de Google y la versión inicial fue lanzada en 2015 bajo la licencia Apacha License 2.0 [https://github.com/tensorflow/tensorflow]. TensorFlow proporciona APIs estables y oficiales para Python y C++, aunque también existen APIs para otros lenguajes de programación que no están garantizadas de manera oficial.
+TensorFlow es una plataforma de código abierto para ML. Tiene un ecosistema completo y flexible de herramientas, bibliotecas y recursos comunitarios que permite a los desarrolladores crear e implementar fácilmente aplicaciones basadas en ML. Fue originalmente desarrollado por investigadores e ingenieros que trabajaban en el equipo Google Brain dentro de la organización de investigación de inteligencia artificial de Google y la versión inicial fue lanzada en 2015 bajo la licencia Apacha License 2.0 \cite{tf_info}. TensorFlow proporciona APIs estables y oficiales para Python y C++, aunque también existen APIs para otros lenguajes de programación que no están garantizadas de manera oficial.
 
 Sus características principales son:
 \begin{itemize}
@@ -272,28 +276,30 @@ Para el desarrollo de aplicaciones de ML existen varias otras bibliotecas, algun
 
 %----------------------------------------------------------------------------------------
 \section{AWS (\textit{Amazon Web Services}, Servicios Web de Amazon)}
-AWS es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido.
+AWS es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
 
 AWS está dividido en distintos tipos de servicios que pueden ser configurados según las necesidades de cada usuario. Estos servicios pueden dividirse en las siguientes categorías: computación, almacenamiento, bases de datos, administración de datos, migración, redes, herramientas de desarrollo, monitoreo, administración de \textit{big data}, analíticas, AI, desarrollo móvil, mensajería y notificaciones.
 
 De toda la extensa cantidad de servicios que ofrece AWS, para este trabajo se necesitaron sólo los siguientes: IoT Core y Amazon Timestream.
 
 \subsection{IoT Core}
-Proporciona los servicios en la nube necesarios para conectar dispositivos IoT entre sí y a los servicios a otros servicios de AWS. En la figura \ref{fig:aws_iot} se puede observar un diagrama de interconexión de dispositivos IoT y los servicios de AWS mediante IoT Core.
+Proporciona los servicios en la nube necesarios para conectar dispositivos IoT entre sí y a los otros servicios de AWS \cite{iot_info}. AWS IoT proporciona software que puede ayudar a integrar dispositivos IoT en soluciones basadas en las herramientas de AWS. En la figura \ref{fig:aws_iot} se puede observar un diagrama de interconexión de dispositivos IoT y los servicios de AWS mediante IoT Core.
+
 
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.5]{./Figures/aws_iot.png}
-	\caption{Diagrama de conexión entre dispositivos IoT y AWS.}
+	\caption{Diagrama de conexión entre dispositivos IoT y AWS\protect\footnotemark.}
 	\label{fig:aws_iot}
 \end{figure}
+\footnotetext{Imagen tomada de: \url{https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html}}
 
 IoT Core permite seleccionar las tecnologías más adecuadas y actualizadas para interconectar dispositivos IoT. Los protocolos de comunicación soportados son: MQTT (\textit{Message Queuing and Telemetry Transport}, Cola de Mensajes y Transporte de Telemetría), MQTT sobre WSS (\textit{Websocket Secure}, Websocket Seguro), HTTPS (\textit{Hypertext Transfer Protocol Secure}, Protocolo de Transferencia de Hipertexto Seguro) y LoRaWAN.
 
 El \textit{broker} de IoT Core admite dispositivos y clientes que utilizan MQTT y MQTT sobre WSS para publicar y suscribirse a algún tópico. También es compatible con dispositivos y clientes que utilizan HTTPS para publicar mensajes.
 
 \subsection{Amazon Timestream}
-Amazon Timestream es una base de datos de series temporales rápida, escalable y totalmente administrada, que facilita el almacenamiento y el análisis de billones de datos de series temporales al día. Timestream ahorra tiempos y costos con su capacidad de administrar los ciclos de vida de los datos de series temporales, donde mantiene los datos recientes en la memoria y mueve los datos históricos a un nivel de almacenamiento optimizado según las políticas definidas previamente por el usuario. El motor de consultas de Timestream permite acceder y analizar datos recientes e históricos al mismo tiempo. No necesita servidor y su tamaño se acomoda automáticamente para ajustar la capacidad y el rendimiento requeridos.
+Amazon Timestream es una base de datos de series temporales rápida, escalable y totalmente administrada, que facilita el almacenamiento y el análisis de billones de datos de series temporales al día. Timestream ahorra tiempos y costos con su capacidad de administrar los ciclos de vida de los datos de series temporales, donde mantiene los datos recientes en la memoria y mueve los datos históricos a un nivel de almacenamiento optimizado según las políticas definidas previamente por el usuario. El motor de consultas de Timestream permite acceder y analizar datos recientes e históricos al mismo tiempo. No necesita servidor y su tamaño se acomoda automáticamente para ajustar la capacidad y el rendimiento requeridos \cite{timestream_info}.
 
 Los beneficios más notables que ofrece Amazon Timestream son:
 \begin{itemize}
@@ -307,7 +313,7 @@ Los beneficios más notables que ofrece Amazon Timestream son:
 
 %----------------------------------------------------------------------------------------
 \section{Grafana}
-Es una aplicación web multiplataforma de análisis y visualización interactiva. Proporciona tablas, gráficos y alertas a través de la web cuando se conecta a alguna fuente de datos compatible. Los usuarios pueden crear \textit{dashboards} de monitoreo de datos complejos con ayuda de generadores de consultas interactivos.
+Es una aplicación web multiplataforma de análisis y visualización interactiva. Proporciona tablas, gráficos y alertas a través de la web cuando se conecta a alguna fuente de datos compatible. Los usuarios pueden crear \textit{dashboards} de monitoreo de datos complejos con ayuda de generadores de consultas interactivos \cite{grafana_info}.
 
 Como herramienta de visualización, Grafana es muy popular gracias a las siguientes características:
 \begin{itemize}

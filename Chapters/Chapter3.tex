@@ -38,55 +38,42 @@
   morecomment=[s]{/*}{*/}
 }
 
+%----------------------------------------------------------------------------------------
+\section{Desarrollo de los modelos}
+Como se explico en el capitulo \ref{Chapter1}, el objetivo principal de este trabajo es detectar rostros humanos con ayuda de algoritmos de AI. Para esto se deben obtener imagenes digitales con ayuda de una camara, procesarlas y utilizarlas como entrada de una red de modelos de DL capaz de realizar la tarea de deteccion facial. Esta red de modelos de DL fue descrita en el capitulo \ref{Chapter2} y se denomina MTCNN.
+
+Para implementar MTCNN adecuadamente no basta con alimentar P-Net con las imagenes obtenidas por la camara, R-Net con las ventanas candidatas de P-Net y O-Net con las ventanas candidatas de R-Net. Los datos de entrada de cada uno de los modelos de MTCNN deben ser procesados previamente para conseguir el mejor resultado posible, como se muestra en el diagrama de la figura \ref{fig:mtcnn_npipe}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.25]{./Figures/mtcnn_npipe.png}
+	\caption{\textit{Pipeline} detallado de MTCNN.}
+	\label{fig:mtcnn_npipe}
+\end{figure}
+
+
+
+\subsection{Modelos en TensorFlow y TensorFlow Lite}
+
+\subsection{Despliegue de los modelos}
 
 %----------------------------------------------------------------------------------------
-%	SECTION 1
+
+
 %----------------------------------------------------------------------------------------
-\section{Análisis del software}
- 
-La idea de esta sección es resaltar los problemas encontrados, los criterios utilizados y la justificación de las decisiones que se hayan tomado.
 
-Se puede agregar código o pseudocódigo dentro de un entorno lstlisting con el siguiente código:
 
-\begin{verbatim}
-\begin{lstlisting}[caption= "un epígrafe descriptivo"]
-	las líneas de código irían aquí...
-\end{lstlisting}
-\end{verbatim}
+%----------------------------------------------------------------------------------------
 
-A modo de ejemplo:
 
-\begin{lstlisting}[label=cod:vControl,caption=Pseudocódigo del lazo principal de control.]  % Start your code-block
+%----------------------------------------------------------------------------------------
 
-#define MAX_SENSOR_NUMBER 3
-#define MAX_ALARM_NUMBER  6
-#define MAX_ACTUATOR_NUMBER 6
 
-uint32_t sensorValue[MAX_SENSOR_NUMBER];		
-FunctionalState alarmControl[MAX_ALARM_NUMBER];	//ENABLE or DISABLE
-state_t alarmState[MAX_ALARM_NUMBER];						//ON or OFF
-state_t actuatorState[MAX_ACTUATOR_NUMBER];			//ON or OFF
+%----------------------------------------------------------------------------------------
 
-void vControl() {
 
-	initGlobalVariables();
-	
-	period = 500 ms;
-		
-	while(1) {
+%----------------------------------------------------------------------------------------
 
-		ticks = xTaskGetTickCount();
-		
-		updateSensors();
-		
-		updateAlarms();
-		
-		controlActuators();
-		
-		vTaskDelayUntil(&ticks, period);
-	}
-}
-\end{lstlisting}
 
 
 
