@@ -151,7 +151,7 @@ Las características técnicas más importantes del TLV8544 se presentan en la t
 	\label{tab:opamp_specs}
 \end{table}
 
-Desde hace muchos años los amplificadores operacionales son un dispositivo muy utilizado y en el mercado existen muchas empresas que los fabrican y muchos modelos existentes. Estos son los criterios de elección del TLV8544 para el presente trabajo:
+Desde hace muchos años los amplificadores operacionales son dispositivos muy utilizados por su gran cantidad de aplicaciones, en el mercado existen una gran variedad de modelos y son fabricados por muchas empresas de semiconductores. Estos fueron los criterios de elección del TLV8544 para el presente trabajo:
 \begin{itemize}
 	\item Aplicación: por sus características técnicas, el TLV8544 está diseñado para ser parte de las etapas de amplificación y filtrado en el diseño de un sensor de movimiento PIR.
 	\item Documentacion: Texas Instruments, además del correspondiente \textit{datasheet} del TLV8544, ofrece varios documentos técnicos con ejemplos de diseño para el TLV8544.
@@ -204,7 +204,7 @@ Los criterios para utilizar este módulo como cámara del sistema son los siguie
 
 %----------------------------------------------------------------------------------------
 \section{MTCNN (\textit{Multi-Task Cascaded Convolutional Networks}, Redes Convolucionales en Cascada Multitarea)}
-MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNS en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
+MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNNs en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
 
 \begin{figure}[h]
 	\centering
@@ -213,10 +213,8 @@ MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detectio
 	\label{fig:mtcnn_pipe}
 \end{figure}
 
-El \textit{pipeline} de la figura \ref{fig:mtcnn_pipe} indica que las imágenes de entrada deben ser reducidas de tamaño en varias escalas para formar un piramide de imágenes, que servirán para alimentar las siguientes tres etapas de MTCNN
-
 \subsection{P-Net}
-También conocida como \textit{Proposal Network} o red de propuestas, esta etapa está compuesta de una FCN (\textit{Fully Convolutional Network}, Red Totalmente Convolucional). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box}. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
+También conocida como \textit{Proposal Network} o red de propuestas, esta etapa está compuesta de una FCN (\textit{Fully Convolutional Network}, Red Totalmente Convolucional). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box} a partir de varias escalas de la imagen original. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
 
 \begin{figure}[h]
 	\centering
