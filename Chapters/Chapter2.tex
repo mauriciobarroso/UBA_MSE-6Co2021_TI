@@ -6,7 +6,7 @@
 Este capítulo expone una descripción detallada del sistema, del hardware utilizado y las herramientas de  software necesarias en el desarrollo del trabajo. Se abarcan la descripción del sistema y sus componentes, los \textit{frameworks} y modelos utilizados para detección facial y las herramientas utilizadas en la web.
 
 %----------------------------------------------------------------------------------------
-\section{Diagrama general del sistema}
+\section{Funcionamiento general del sistema}
 El sistema desarrollado en este trabajo consta de varios componentes de hardware que interconectados entre sí son capaces de cubrir todos los requerimientos funcionales planteados en el capítulo \ref{Chapter1}. En la figura \ref{fig:sys_blocks} se muestra el diagrama en bloques del sistema.
 
 \begin{figure}[h]
@@ -16,9 +16,9 @@ El sistema desarrollado en este trabajo consta de varios componentes de hardware
 	\label{fig:sys_blocks}
 \end{figure}
 
-En el sistema de la figura \ref{fig:sys_blocks}, cuando el sensor de movimiento PIR detecta el movimiento de una persona genera una señal que notifica a la tarjeta de desarrollo ESP32-S3-DevKitC-1 sobre este evento. Entonces la tarjeta ESP32-S3-DevKitC-1 activa la cámara OV2640 y obtiene una fotografía para procesarla. La imagen digital obtenida es procesada y utilizada como entrada para los modelos de DL. Cuando se obtienen las inferencias deseadas de los modelos, los resultados son procesados para transmitirlos hacia los servidores en la nube encargados de procesarlos y mostrarlos a los usuarios finales.
+En el sistema de la figura \ref{fig:sys_blocks}, cuando el sensor de movimiento detecta el movimiento de una persona genera una señal que notifica a la tarjeta de desarrollo sobre este evento. Entonces la tarjeta de desarrollo activa la cámara y obtiene una fotografía para procesarla. La imagen digital obtenida es procesada y utilizada como entrada para los modelos de DL. Cuando se obtienen las inferencias deseadas de los modelos, los resultados son procesados para transmitirlos hacia los servidores en la nube encargados de procesarlos y mostrarlos a los usuarios finales.
 
-\subsection{Placa de desarrollo ESP32-S3-DevKitC-1}
+\subsection{Tarjeta de desarrollo}
 El componente central del sistema es la tarjeta de desarrollo ESP32-S3-DevKitC-1-N8R8 de la empresa Espressif. Tiene como componente central el módulo ESP32-S3-WROOM-1-N8R8 y varios otros componentes que simplifican el proceso de desarrollo de aplicaciones para IoT. En la figura \ref{fig:devkit_comp} se observa una fotografía de la tarjeta con el detalle de sus componentes.
 
 \begin{figure}[h]
@@ -64,7 +64,7 @@ En el mercado existen muchos fabricantes que ofrecen tarjetas de desarrollo de c
 	\item Memoria: como el trabajo implicaba el uso de una cámara y por tanto el manejo de \textit{buffers} de memoria de gran tamaño para manipular las imágenes obtenidas, la cantidad de memoria externa que ofrece esta tarjeta la hizo óptima para la aplicación.
 \end{itemize}
 
-\subsection{Sensor de movimiento PIR}
+\subsection{Sensor de movimiento}
 Un sensor de movimiento PIR basa su funcionamiento al detectar diferencias en la energía IR (\textit{Infrared}, Infrarrojo) en el campo de visión del sensor. Debido a que la señal de salida generada por el sensor es muy pequeña, es necesario aplicar etapas de amplificación y filtrado para elevar el nivel de tensión de la señal de salida y al mismo tiempo filtrar el ruido que puede generar eventos falsos positivos. Esta salida analógica luego se debe convertir en una señal digital mediante la operación de comparación de ventanas y se puede utilizar, por ejemplo, como una interrupción en un MCU. En la figura \ref{fig:move_blocks} se muestra el diagrama en bloques del sensor de movimiento PIR.
 
 \begin{figure}[h]
@@ -74,7 +74,7 @@ Un sensor de movimiento PIR basa su funcionamiento al detectar diferencias en la
 	\label{fig:move_blocks}
 \end{figure}
 
-\subsubsection{Sensor IRA-S230ST01}
+\subsubsection{Sensor pasivo infrarojo}
 El IRA-S230ST01 es un sensor PIR fabricado por la empresa Murata. Posee una alta sensibilidad y un rendimiento confiable gracias a la tecnología cerámica y la técnica de IC (\textit{Integrated Circuit}, Circuito Integrado) híbrida de Murata. Tiene además una sensibilidad mejorada a la interferencia de RF (\textit{Radio Frequency}, Radiofrecuencia). Sus aplicaciones más comunes incluyen sistemas de seguridad, aparatos de iluminación, electrodomésticos, entre otros \cite{pir_info}. En la figura \ref{fig:pir_photo} se puede observar una fotografía del IRA-S230ST01.
 
 \vspace*{60 px}
@@ -115,7 +115,7 @@ La elección del IRA-S230ST01 como sensor PIR responde a los siguientes criterio
 	\item Documentación: el IRA-S230ST01 cuenta con documentación muy clara sobre sus características técnicas.
 \end{itemize}
 
-\subsubsection{Amplificador operacional TLV8544}
+\subsubsection{Amplificador operacional}
 El TLV8544 es un amplificador operacional cuadruple de ultra bajo consumo energético de la empresa Texas Instruments, de costo optimizado para aplicaciones de detección en equipos inalámbricos y cableados de bajo consumo. El diseño del TLV8544 minimiza el consumo energético en dispositivos como sensores de movimiento para sistemas de seguridad, donde el tiempo de vida de la batería que los alimenta es crítico. Su uso más común es en configuraciones de amplificadores de transimpedancia con resistencias de \textit{feedback} en el orden de los Mega ohms. Adicionalmente, tiene protección contra EMI (\textit{Electromagnetic Interference}, Interferencia Electromagnética) que reduce la sensibilidad a las señales de RF no deseadas de fuentes como teléfonos móviles, Wi-Fi y transmisores de radio \cite{opamp_info}. En la figura \ref{fig:opamp_photo} se puede observar una fotografía del TLV8544 en un encapsulado TSSOP-14.
 
 \vspace*{50 px}
@@ -159,7 +159,7 @@ Desde hace muchos años los amplificadores operacionales son dispositivos muy ut
 	\item Consumo energético: con sus 500 nA de corriente de funcionamiento por canal, el TLV8544 es una opción ideal para aplicaciones que requieran el uso de baterías.
 \end{itemize}
 
-\subsection{Cámara OV2640}
+\subsection{Cámara}
 Otro de los componentes principales del sistema es la cámara, que permite obtener imágenes en un formato digital que posteriormente deben ser procesadas por los algoritmos de DL. Para este trabajo se utilizó el módulo ESP-LyraP-CAM. Este módulo integra un CCM (\textit{Compact Camera Module}, Módulo de Cámara Compacto) con un sensor OV2640 en conjunto con dos reguladores de tensión para su correcto funcionamiento. En la figura \ref{fig:camera_comp} se puede observar unas fotografías del módulo ESP-LyraP-CAM y sus componentes.
 
 \begin{figure}[h]
@@ -203,8 +203,8 @@ Los criterios para utilizar este módulo como cámara del sistema son los siguie
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
-\section{MTCNN (\textit{Multi-Task Cascaded Convolutional Networks}, Redes Convolucionales en Cascada Multitarea)}
-MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNNs en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
+\section{Redes Convolucionales en Cascada Multitarea}
+MTCNN (\textit{Multi-task Cascaded Convolutional Networks}, Redes Convolucionales en Cascada Multitarea) es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNNs en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
 
 \begin{figure}[h]
 	\centering
@@ -213,8 +213,8 @@ MTCNN es un \textit{framework} basado el el \textit{paper} ``Joint Face Detectio
 	\label{fig:mtcnn_pipe}
 \end{figure}
 
-\subsection{P-Net}
-También conocida como \textit{Proposal Network} o red de propuestas, esta etapa está compuesta de una FCN (\textit{Fully Convolutional Network}, Red Totalmente Convolucional). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box} a partir de varias escalas de la imagen original. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
+\subsection{Red de propuestas}
+También conocida como P-Net (\textit{Proposal Network}, Red Propositiva), esta etapa está compuesta de una FCN (\textit{Fully Convolutional Network}, Red Totalmente Convolucional). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box} a partir de varias escalas de la imagen original. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
 
 \begin{figure}[h]
 	\centering
@@ -223,8 +223,8 @@ También conocida como \textit{Proposal Network} o red de propuestas, esta etapa
 	\label{fig:mtcnn_pnet}
 \end{figure}
 	
-\subsection{R-Net}
-Esta es una CNN denominada \textit{Refine Network} o red de refinamiento. Los candidatos provenientes de P-Net son la entrada de esta red. La arquitectura de R-Net reduce aún más el número de candidatos, realiza la calibración con regresión de \textit{bounding box} y emplea NMS para fusionar candidatos superpuestos. Para cada candidato de entrada, R-Net obtiene la probabilidad de si es un rostro o no, un vector de 4 elementos que es el \textit{bounding box} y un vector de 10 elementos que representan la localización de rasgos faciales. En la figura \ref{fig:mtcnn_rnet} se muestra la arquitectura de R-Net.
+\subsection{Red de refinamiento}
+Esta es una CNN denominada R-Net (\textit{Refine Network}, Red de Refinamiento). Los candidatos provenientes de P-Net son la entrada de esta red. La arquitectura de R-Net reduce aún más el número de candidatos, realiza la calibración con regresión de \textit{bounding box} y emplea NMS para fusionar candidatos superpuestos. Para cada candidato de entrada, R-Net obtiene la probabilidad de si es un rostro o no, un vector de 4 elementos que es el \textit{bounding box} y un vector de 10 elementos que representan la localización de rasgos faciales. En la figura \ref{fig:mtcnn_rnet} se muestra la arquitectura de R-Net.
 
 \begin{figure}[h]
 	\centering
@@ -233,8 +233,8 @@ Esta es una CNN denominada \textit{Refine Network} o red de refinamiento. Los ca
 	\label{fig:mtcnn_rnet}
 \end{figure}
 
-\subsection{O-Net}
-Conocida como \textit{Output Network} o red de salida, es muy similar a R-Net, pero está enfocada a describir el rostro con más detalle y generar las cinco localizaciones para ojos, boca y nariz. Su arquitectura se muestra en la figura \ref{fig:mtcnn_onet}.
+\subsection{Red de salida}
+Conocida como O-Net (\textit{Output Network}, Red de Salida), es muy similar a R-Net, pero está enfocada a describir el rostro con más detalle y generar las cinco localizaciones para ojos, boca y nariz. Su arquitectura se muestra en la figura \ref{fig:mtcnn_onet}.
 
 \begin{figure}[h]
 	\centering
@@ -243,7 +243,7 @@ Conocida como \textit{Output Network} o red de salida, es muy similar a R-Net, p
 	\label{fig:mtcnn_onet}
 \end{figure}
 
-\subsection{Tareas de MTCNN}
+\subsection{Tareas}
 Como se explicó en los puntos anteriores, MTCNN se compone de tres etapas que filtran ventanas candidatas y con la ayuda de NMS y calibración con los vectores de regresión de \textit{bounding box}, se detectan rostros y sus rasgos. Entonces, el propósito de MTCNN es cumplir con las siguientes tareas:
 \begin{itemize}
 	\item Clasificación rostro/no rostro: este es un problema de clasificación binaria que utiliza una función de pérdida de entropía cruzada.
@@ -252,7 +252,7 @@ Como se explicó en los puntos anteriores, MTCNN se compone de tres etapas que f
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
-\section{TensorFlow}
+\section{Biblioteca TensorFlow}
 TensorFlow es una plataforma de código abierto para ML. Tiene un ecosistema completo y flexible de herramientas, bibliotecas y recursos comunitarios que permite a los desarrolladores crear e implementar fácilmente aplicaciones basadas en ML. Fue originalmente desarrollado por investigadores e ingenieros que trabajaban en el equipo Google Brain dentro de la organización de investigación de inteligencia artificial de Google y la versión inicial fue lanzada en 2015 bajo la licencia Apacha License 2.0 \cite{tf_info}. TensorFlow proporciona APIs estables y oficiales para Python y C++, aunque también existen APIs para otros lenguajes de programación que no están garantizadas de manera oficial.
 
 Sus características principales son:
@@ -273,14 +273,14 @@ Para el desarrollo de aplicaciones de ML existen varias otras bibliotecas, algun
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
-\section{AWS (\textit{Amazon Web Services}, Servicios Web de Amazon)}
-AWS es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
+\section{Servicios Web de Amazon}
+Más conocido como AWS (\textit{Amazon Web Services}, Servicio Web de Amazon) por sus siglas en inglés, es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
 
 AWS está dividido en distintos tipos de servicios que pueden ser configurados según las necesidades de cada usuario. Estos servicios pueden dividirse en las siguientes categorías: computación, almacenamiento, bases de datos, administración de datos, migración, redes, herramientas de desarrollo, monitoreo, administración de \textit{big data}, analíticas, AI, desarrollo móvil, mensajería y notificaciones.
 
 De toda la extensa cantidad de servicios que ofrece AWS, para este trabajo se necesitaron sólo los siguientes: IoT Core y Amazon Timestream.
 
-\subsection{IoT Core}
+\subsection{Servicio IoT Core}
 Proporciona los servicios en la nube necesarios para conectar dispositivos IoT entre sí y a los otros servicios de AWS \cite{iot_info}. AWS IoT proporciona software que puede ayudar a integrar dispositivos IoT en soluciones basadas en las herramientas de AWS. En la figura \ref{fig:aws_iot} se puede observar un diagrama de interconexión de dispositivos IoT y los servicios de AWS mediante IoT Core.
 
 
@@ -296,8 +296,8 @@ IoT Core permite seleccionar las tecnologías más adecuadas y actualizadas para
 
 El \textit{broker} de IoT Core admite dispositivos y clientes que utilizan MQTT y MQTT sobre WSS para publicar y suscribirse a algún tópico. También es compatible con dispositivos y clientes que utilizan HTTPS para publicar mensajes.
 
-\subsection{Amazon Timestream}
-Amazon Timestream es una base de datos de series temporales rápida, escalable y totalmente administrada, que facilita el almacenamiento y el análisis de billones de datos de series temporales al día. Timestream ahorra tiempos y costos con su capacidad de administrar los ciclos de vida de los datos de series temporales, donde mantiene los datos recientes en la memoria y mueve los datos históricos a un nivel de almacenamiento optimizado según las políticas definidas previamente por el usuario. El motor de consultas de Timestream permite acceder y analizar datos recientes e históricos al mismo tiempo. No necesita servidor y su tamaño se acomoda automáticamente para ajustar la capacidad y el rendimiento requeridos \cite{timestream_info}.
+\subsection{Servicio TimeStream}
+TimeStream es una base de datos de series temporales rápida, escalable y totalmente administrada, que facilita el almacenamiento y el análisis de billones de datos de series temporales al día. Timestream ahorra tiempos y costos con su capacidad de administrar los ciclos de vida de los datos de series temporales, donde mantiene los datos recientes en la memoria y mueve los datos históricos a un nivel de almacenamiento optimizado según las políticas definidas previamente por el usuario. El motor de consultas de Timestream permite acceder y analizar datos recientes e históricos al mismo tiempo. No necesita servidor y su tamaño se acomoda automáticamente para ajustar la capacidad y el rendimiento requeridos \cite{timestream_info}.
 
 Los beneficios más notables que ofrece Amazon Timestream son:
 \begin{itemize}
@@ -310,7 +310,7 @@ Los beneficios más notables que ofrece Amazon Timestream son:
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
-\section{Grafana}
+\section{Plataforma Grafana}
 Es una aplicación web multiplataforma de análisis y visualización interactiva. Proporciona tablas, gráficos y alertas a través de la web cuando se conecta a alguna fuente de datos compatible. Los usuarios pueden crear \textit{dashboards} de monitoreo de datos complejos con ayuda de generadores de consultas interactivos \cite{grafana_info}.
 
 Como herramienta de visualización, Grafana es muy popular gracias a las siguientes características:
