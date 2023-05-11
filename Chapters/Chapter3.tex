@@ -40,7 +40,7 @@
 
 %----------------------------------------------------------------------------------------
 \section{Detección facial con TensorFlow y TensorFlow Lite}
-\label{section3_1} % Change X to a consecutive number; for referencing this chapter elsewhere, use \ref{ChapterX}
+\label{section3_1}
 Como se explicó en el capitulo \ref{Chapter1}, el objetivo principal de este trabajo es detectar rostros humanos con ayuda de algoritmos de AI. Para esto se deben obtener imagenes digitales con ayuda de una camara, procesarlas y utilizarlas como entrada de una red de modelos de DL capaces de realizar la tarea de deteccion facial. Esta red de modelos de DL fue descrita en el capitulo \ref{Chapter2} y se denomina MTCNN.
 
 Para implementar MTCNN adecuadamente no basta con alimentar P-Net con las imagenes obtenidas por la camara, R-Net con las ventanas candidatas de P-Net y O-Net con las ventanas candidatas de R-Net. Los datos de entrada de cada uno de los modelos de MTCNN deben ser procesados para conseguir el mejor resultado posible, como se muestra en el diagrama de la figura \ref{fig:mtcnn_npipe}.
@@ -185,9 +185,9 @@ En la sección \ref{section3_1} se obtuvieron los modelos para MTCNN en los form
 	\label{fig:fw_detect_flow}
 \end{figure}
 
-El proceso de inicialización de TFLite micro requiere de varios pasos que deben ser seguidos en orden para poder ejecutar los modelos de MTCNN correctamente. En el siguiente fragmento de codigo ...
+El proceso de inicialización de TFLite micro requiere de varios pasos que deben ser seguidos en orden para poder ejecutar los modelos de MTCNN correctamente. En el fragmento de codigo ... se presenta la inicialización para O-Net con TFLite micro.
 
-\begin{lstlisting}[label=cod:vControl,caption=Código para inicializar O-Net con TFLite micro.]
+\begin{lstlisting}[label=cod:tflm_init,caption=Código para inicializar O-Net con TFLite micro.]
 /* Map the model into a usable data structure */
 const tflite::Model *onet_model = tflite::GetModel(onet_model_data);
 
@@ -215,9 +215,70 @@ onet_interpreter = &static_onet_interpreter;
 onet_interpreter->AllocateTensors();
 \end{lstlisting}
 
+Los modelos de P-Net y R-Net se inicializan de la misma forma que O-Net y una cosa a notar es la declaración de los operadores estrictamente necesarios para ejecutar estos modelos en las líneas 9-18. Otra aproximación más sencilla era utilizar \texttt{OpsResolver} para utilizar todos los operadores, pero esto hubiera supuesto una penalización en la cantidad de memoria RAM utilizada. En la figura \ref{fig:fw_tflite_ops} se puede observar una captura de pantalla de una página web generada con la herramienta de visualización de modelos de TensorFlow Lite que se encuentra en el repositorio oficial de TensorFLow Lite para microcontroladores\cite{tflm_repo}, donde se muestran los operadores utilizados por O-Net.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.18]{./Figures/fw_tflite_ops.png}
+	\caption{Captura de pantalla del detalle del modelo O-Net para TensorFlow Lite.}
+	\label{fig:fw_tflite_ops}
+\end{figure}
+
+Otro aspecto a destacar es la utilización de la memoria PSRAM (\textit{Pseudo static} RAM, RAM Pseudoestática) para almacenar los tensores utilizados durante la ejecucióin de los modelos de MTCNN. En la línea 5 del fragmento de código ... se puede observar como se reserva memoria en la PSRAM de un tamaño determinado de manera experimental y denominado \texttt{TENSOR\_ARENA\_SIZE}.
+
+Los métodos de MTCNN para inicializarlo y ejecutar sus modelos se encuentran en los archivos \texttt{main/mtcnn.h} y \texttt{mtcnn.cc} del repositorio \cite{mtcnn_repo}. En el fragmento de código ... se pueden observar las estructuras de datos utilizadas por los métodos de MTCNN.
+
+\begin{lstlisting}[label=cod:mtcnn_struct,caption=Estructura de datos de MTCNN.]
+typedef struct {
+  tflite::MicroInterpreter *interpreter;
+  candidate_windows_t candidate_windows;
+  bboxes_t bboxes;
+} model_data_t;
+
+typedef struct {
+  model_data_t pnet[3];
+  model_data_t rnet;
+  model_data_t onet;
+} mtcnn_t;
+\end{lstlisting}
+
+Como el tipo de dato \texttt{mtcnn\_t} contiene todos los datos de entrada y salida de los modelos de MTCNN, fue utilizado como parámetro de todas las funciones encargadas de ejecutar los modelos. La función que ejecuta O-Net es \texttt{mtcnn\_run\_onet} y en el fragmento de código ... se puede observar su implementación.
+
+\begin{lstlisting}[label=cod:mtcnn_struct,caption=Función mtcnn\_run\_onet.]
+void mtcnn\_run_\onet(mtcnn_t *mtcnn, uint8_t *img, uint16_t img_w, uint16_t img_h) {
+  /* Pre-process R-Net ouputs */
+  
+  /* Feed the model and run it */
+  TfLiteTensor *input = mtcnn->interpreter->input(0);
+    
+  for(int i = 0; i < ONET_SIZE * ONET_SIZE * 3; i++) {
+    input->data.int8[i] = ((uint8_t *) onet_image)[i] ^ 0x80;
+  }
+  
+  mtcnn->interpreter->Invoke();
+  
+  /* Store the scores and offsets output */
+  TfLiteTensor *scores = interpreter->output(0);
+  
+  for(uint8_t j = 0; j < 2; j++) {
+    probs_buf[j + (i * 2)] = probs->data.f[j];
+  }
+
+  TfLiteTensor *offsets = interpreter->output(1);
+
+  for(uint8_t j = 0; j < 4; j++) {
+    offsets_buf[j + (i * 2)] = offsets->data.f[j];
+  }
+  
+  /* Add the candidate windows to the candidate windows array */
+  add_candidate_windows();
+  
+  /* Post-process O-Net ouputs */
+}
+\end{lstlisting}
 
 \subsection{Comunicación con los servicios en la nube}
+Esta tarea fue diseñada para establecer conectividad con los servicios en la nube, más precisamente con el servicio IoT Core de AWS, para transmitir y recibir datos mediante el protocolo MQTT (MQ \textit{Telemetry Transport}, Transporte de Telemetría MQ). El diagrama de flujo de la figura \ref{fig:fw_comm_flow} muestra el proceso que sigue esta tarea.
 
 \begin{figure}[h]
 	\centering
@@ -226,12 +287,123 @@ onet_interpreter->AllocateTensors();
 	\label{fig:fw_comm_flow}
 \end{figure}
 
+El digrama de la figura \ref{fig:fw_comm_flow} empieza con la inicialización de la memoria NVS y el perférico Wi-Fi en modo punto de acceso y estación, para después establecer si el dispositivo debe ejecutar el proceso de provisionamiento de credenciales Wi-Fi o en cambio ejecutar la tarea de detección facial y transmitir los datos generados. El provisionamiento de credenciales Wi-Fi utiliza un protocolo de comunicación llamado protocomm (\textit{protocol communication}) de Espressif \cite{protocomm_doc} y corre sobre Wi-Fi en modo SoftAP (\textit{Software enabled Access Point}, Punto de Acceso habilitado por Software). En el fragmento de código ... se exhiben las línea de código para la inicializacion del provisionamiento Wi-Fi.
+
+\begin{lstlisting}[label=cod:mtcnn_struct,caption=Función mtcnn\_run\_onet.]
+/* Initalize Wi-Fi provisioning over SoftAP */
+wifi_prov_mgr_config_t prov_config = {
+  .scheme = wifi_prov_scheme_softap,
+  .scheme_event_handler = WIFI_PROV_EVENT_HANDLER_NONE,
+  .app_event_handler = WIFI_PROV_EVENT_HANDLER_NONE
+};
+
+ESP_ERROR_CHECK(wifi_prov_mgr_init(prov_config));
+\end{lstlisting}
+
+Cuando se ejecuta la tarea de detección facial pueden o no detectarse rostros humanos en la imágenes obtenidas por la cámara, cuando uno más rostros son detectados esta información se transmite por MQTT. AWS IoT Core dispone de un \textit{broker} MQTT que implementa TLS (\textit{Transport Layer Security}, Seguridad de la Capa de Transporte) \cite{tls_doc} para brindar seguridad en el intercambio de mensajes, por tanto, la autenticacíon y cifrado de datos necesita de certificados y llaves para llevarse a cabo. La llave privada y el certificado del dispositivo son generados en la plataforma AWS IoT Core y deben quedar grabadas en la memoria del ESP32-S3 para que puedan ser utilizadas en el código. La forma más simple de utilizar la llave y el certificado es añadirlas al binario de la aplicación durante el proceso de compilación, en la figura \ref{fig:fw_parttab1} se observa un diagrama representativo de la distribución de la memoria del ESP32-S3, donde los valores encima de los bloques son las posiciones de memoria donde se encuentran las particiones y los valores que se encuentran por debajo son la cantidad de memoria utilizada.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.22]{./Figures/fw_parttab1.png}
+	\caption{Diagrama representativo de la memoria del ESP32-S3.}
+	\label{fig:fw_parttab1}
+\end{figure}
+
+En el diagrama de la figura \ref{fig:fw_parttab1} se puede observar un problema no menor con respecto a al proceso de actualizaciones OTA, que las actualizaciones sobreescribirán tanto el \textit{firmware} como el certificado y llave privada del dipositivo. Esto no sería problemático para un solo dispotivo, pero si existieran más dispositivos establecerian conexión con AWS IoT Core con el mismo certificado y llave privada, lo que supondría una grave falla de seguridad de la información. Para corregir esta falla de seguridad se optó por generar llaves y certificados únicos para cada dispositivo, y grabarlos en la memoria NVS en un \textit{namespace} llamado "certs", de esta forma el proceso de actualización OTA solo sobreescribirá el \textit{firmware} más no el certificado ni la llave. En la figura \ref{fig:fw_parttab2} se muestra el diagrama representativo de la memoria del ESP32-S3 utilziado en este trabajo.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.22]{./Figures/fw_parttab2.png}
+	\caption{Diagrama representativo de la memoria del ESP32-S3.}
+	\label{fig:fw_parttab2}
+\end{figure}
+
+La inicialización de MQTT en el código utiliza una estructura de datos donde algunoss campos debens ser asignados al certificado del dispositivo y la llave privada en formato de cadena de caracteres. En los fragmentos de codigo ... se exhibe la función para obtener una cadena de caracteres de la NVS y la inicialización de MQTT en modo cliente.
+
+\begin{lstlisting}[label=cod:mtcnn_struct,caption=Función para cargar una cadena de caracteres de la NVS.]
+esp_err_t load_string_from_nvs(const char * namespace_name, const char *key, char **value) {
+  esp_err_t ret = ESP_OK;
+  nvs_handle_t nvs_handle;
+  size_t value_size;
+
+  /* Open the name space to read and write */
+  ret = nvs_open(namespace_name, NVS_READONLY, &nvs_handle);
+
+  if (ret != ESP_OK) {
+	ESP_LOGE(TAG, "Error opening namespace %s", namespace_name);
+	return ret;
+  }
+
+  /* Get value size */
+  ret = nvs_get_str(nvs_handle, key, NULL, &value_size);
+
+  if (ret != ESP_OK){
+	ESP_LOGE(TAG, "Failed to get size of key: %s", key);
+    return ret;
+  }
+
+  /* Allocate memory and get value */
+  *value = (char *)malloc(value_size);
+  ret = nvs_get_str(nvs_handle, key, * value, &value_size);
+
+  if (ret != ESP_OK){
+	 ESP_LOGE(TAG, "Failed to load key: %s", key);
+     return ret;
+  }
+
+  /* Close NVS and return */
+  nvs_close(nvs_handle);
+  return ret;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[label=cod:mtcnn_struct,caption=Código para inicializar MQTT en modo cliente.]
+/* CA certificate is embedded in the binary application */
+extern const char amazon_root_ca1_pem_start[] asm("_binary_amazon_root_ca1_pem_start");
+
+/* Get device certificate and private key from NVS */
+char *device_cert = NULL;
+char *priv_key = NULL;
+
+load_string_from_nvs("certs", "dev_cert", &dev_cert);
+load_string_from_nvs("certs", "priv_key", &priv_key);
+
+/* Fill MQTT client configuration */
+const esp_mqtt_client_config_t mqtt_config = {
+  .broker = {
+    .address = {
+      .uri = BROKER_URL, /* Broker address in port 8883 */
+    },
+	.verification = {
+      .certificate = (const char *)amazon_root_ca1_pem_start,
+    },
+  },
+  .credentials = {
+    .authentication = {
+      .certificate = (const char *)dev_cert,
+      .key = (const char *)priv_key
+    },
+  },
+};
+
+/* Initialize MQTT client */
+mqtt_client = esp_mqtt_client_init(&mqtt_config);
+\end{lstlisting}
+
 \subsection{Gestión del consumo energético}
-
-
+TBD
 %----------------------------------------------------------------------------------------
 \section{Procesamiento y visualización en la nube}
-\subsection{Getión de dispositivos con IoT Core}
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.22]{./Figures/cc_diagram.png}
+	\caption{Arquitectura de los servicios en la nube.}
+	\label{fig:cc_diagram}
+\end{figure}
+
+\subsection{Gestión de dispositivos con IoT Core}
+\label{subsection3_3_1}
 \subsection{Bases de datos de series temporales con TimeStream}
 \subsection{Visualiación de datos con Grafana}
 
