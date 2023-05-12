@@ -394,6 +394,7 @@ mqtt_client = esp_mqtt_client_init(&mqtt_config);
 TBD
 %----------------------------------------------------------------------------------------
 \section{Procesamiento y visualización en la nube}
+Otro aspecto de importancia en este trabajo fue la integración del sistema embebido con los servicios en la nube responsables de procesar los datos entrantes y mostrarlos en un \textit{dashboard} adecuado para que los usuarios finales puedan visualizar la actividad de los dispositivos. En la figura \ref{fig:cc_diagram} se puede observar la arquitectura de los servicios en la nube.
 
 \begin{figure}[h]
 	\centering
@@ -402,9 +403,15 @@ TBD
 	\label{fig:cc_diagram}
 \end{figure}
 
+De la figura \ref{fig:cc_diagram} se infiere que los datos generados por los dispositivos son transmitidos por MQTT hacia IoT Core, donde meidiante un \textit{rule} se extrae la información relevante y se guarda en una base de datos de TimeStream. Los datos de TimeStream son utilizados para crear un \textit{dashboard} en Grafana, que puede ser accedido por diferentes tipos de dipositivos con un navegador web mediante el protocolo HTTPS.
+
 \subsection{Gestión de dispositivos con IoT Core}
 \label{subsection3_3_1}
+
+
 \subsection{Bases de datos de series temporales con TimeStream}
+
+
 \subsection{Visualiación de datos con Grafana}
 
 
