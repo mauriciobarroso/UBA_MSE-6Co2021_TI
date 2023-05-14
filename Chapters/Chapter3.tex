@@ -520,7 +520,18 @@ SELECT payload.face AS face, payload.battery AS battery, payload.temperature AS 
 \end{enumerate}
 
 \subsection{Visualiación de datos con Grafana}
+Una vez creada la base de datos de series temporales para almacenar los datos del dispositivo, puede ser utilizada para ofrecer sus datos a otros servicios, en este caso Grafana. Grafana ofrece integracion con Timestream a traves del uso de \textit{plugins} y credenciales de acceso a AWS, donde los datos almacenados pueden ser accedidos con el uso del lenguaje SQL. Para visulizar datos con Grafana se deben crear \textit{dashboards} que, a traves de elementos de visualizacion que resultan comprensibles para los usuarios finales. El \textit{dashboard} creado esta compuesto por 2 elementos de visualizacion: 1 grafico de series de tiempo para los datos de datos de rostros detectados junto con 2 graficos indicadores para los datos de estado de la bateria y temperatura del dispositivo. En la figura \ref{fig:gr_dashboard} se muestra el \textit{dashboard} creado para este trabajo, mientras que en el fragmento de codigo ... se encuentra el codigo SQL para obtener los datos sobre los rostros dectados de Tiemstream.
 
+\begin{figure}[h]
+	\centering
+	\includegraphics[scale=0.45]{./Figures/cc_ts_table.png}
+	\caption{Captura de pantalla del \textit{dashboard}.}
+	\label{fig:gr_dashboard}
+\end{figure}
 
-
-
+\begin{lstlisting}[label=cod:policie_json,caption=Codigo SQL del \textit{rule} para .]
+SELECT CREATE_TIME_SERIES(time, measure_value::bigint) as Face
+FROM "iot"."mse_test_table" WHERE $__timeFilter
+  and measure_name = 'face'
+  and device_id = '${id}'
+\end{lstlisting}	
