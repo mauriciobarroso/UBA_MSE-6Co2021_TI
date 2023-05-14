@@ -30,5 +30,14 @@ Algunas preguntas que pueden servir para completar este capítulo:
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 \section{Próximos pasos}
+Esta memoria describe el proceso de diseño e implementación del prototipo de pruebas, que fue utilizado para comprobar la factibiliad técnica de todos los requerimientos funcionales planteados. Los proximos pasos de este trabajo tienen el objetivo de lograr un prototipo lo mas cercano posible a un dipositivo final que pueda ser comercializado, estos son:
 
-Acá se indica cómo se podría continuar el trabajo más adelante.
+\begin{enumerate}
+	\item Incorporar componentes de hardware para controlar y monitorear el suministro de energía de las baterías.
+	\item Diseñar el diagrama esquematico
+	\item Seleccionar una carcasa adecuada al tamaño y entorno de aplicacion del dispositivo
+	\item Diseñar un PCB cuyas dimensiones se correspondan con las de la carcasa.
+	\item Implementar \textit{flash encryption},y \textit{secure boot} en el ESP32-S3 para mejorar la seguridad del dispositivo.
+	\item Estudiar la factibilidad de utilziar FaceNet en el dispositivo para lograr que en conjunto con MTCNN realicen reconocimiento facial.
+	\item Estudiar la factibilidad de utilizar Amazon Rekognition para realizar reconocimiento facial en la nube.
+\end{enumerate}
