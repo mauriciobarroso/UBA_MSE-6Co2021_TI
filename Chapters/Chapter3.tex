@@ -407,10 +407,117 @@ De la figura \ref{fig:cc_diagram} se infiere que los datos generados por los dis
 
 \subsection{Gestión de dispositivos con IoT Core}
 \label{subsection3_3_1}
+Para que los dispositivos se conecten a IoT Core para recibir y transmitir mensajes deben ser previamente registrados. El proceso de registro consistio de los siguientes pasos:
 
+\begin{enumerate}
+	\item Crear un \textit{thing}: un \textit{thing} representa el dispositivo físico o virtual que se desea registrar. Se puede crear manualmente a través de la consola de administración de AWS.
+	\item Generar certificados y llaves: para habilitar la comunicación segura entre el dispositivo y IoT Core, se deben generar certificados y llaves de seguridad.
+	\item Descargar certificados y claves: una vez generados los certificados y llaves, IoT Core proporcionará los archivos necesarios para autenticar y establecer una conexión segura entre el dispositivo y el servicio. Estos archivos incluyen un certificado X.509 \cite{x509_info} del dispositivo, una llave privada y un certificado de autoridad raíz.
+	\item Adjuntar politicas de acceso al certificado: el certificado del dispositivo debe ser adjuntado a una determinada politica de acceso para que el dispositivo pueda interactuar con los servicios de AWS requeridos.
+\end{enumerate}
+
+Todos estos pasos pueden realizarse manualmente a traves de la consola web de AWS, pero no resulta un proceso adecuado cuadno se desea regitrar muchos dispositivos. En cambio, para este trabajo se creo un \textit{script} que utiliza la interface por linea de comandos AWS (aws-cli) \cite{awscli_info} para automatizar esta tarea. En el fragmento de codigo ... se puede observar este \textit{script}.
+
+\begin{verbatim}
+\begin{lstlisting}[caption= "\textit{Script} para automatizar el proceso de un dispositivo en AWS IoT Core"]
+
+	#!/bin/bash
+
+	# Variables de configuración
+	DEVICE_NAME="my-device"
+	THING_TYPE="my-thing-type"
+	CERT_OUTPUT_DIR="/path/to/certificates"
+	AWS_REGION="us-east-1"
+
+	# Paso 1: Crear un thing
+	thing_response=$(aws iot create-thing --thing-name "$DEVICE_NAME" --thing-type-name "$THING_TYPE" --region "$AWS_REGION")
+	thing_arn=$(echo "$thing_response" | jq -r '.thingArn')
+
+	# Paso 2: Generar certificados y claves
+	cert_response=$(aws iot create-keys-and-certificate --set-as-active --certificate-pem-outfile "$CERT_OUTPUT_DIR/device-		certificate.pem.crt" --private-key-outfile "$CERT_OUTPUT_DIR/private.pem.key" --region "$AWS_REGION")
+	certificate_arn=$(echo "$cert_response" | jq -r '.certificateArn')
+
+	# Paso 3: Descargar certificado raíz
+	root_ca_response=$(aws iot get-registration-code --region "$AWS_REGION")
+	registration_code=$(echo "$root_ca_response" | jq -r '.registrationCode')
+	wget -O "$CERT_OUTPUT_DIR/AmazonRootCA1.pem" "https://www.amazontrust.com/repository/AmazonRootCA1.pem"
+
+	# Paso 4: Adjuntar política al certificado
+	policy_name="my-policy"
+	policy_arn=$(aws iot create-policy --policy-name "$policy_name" --policy-document '{"Version":"2012-10-17","Statement":	[{"Effect":"Allow","Action":"iot:*","Resource":"*"}]}' --region "$AWS_REGION" | jq -r '.policyArn')
+	aws iot attach-policy --policy-name "$policy_name" --target "$certificate_arn" --region "$AWS_REGION"
+
+	# Paso 5: Adjuntar certificado al thing
+	aws iot attach-thing-principal --thing-name "$DEVICE_NAME" --principal "$certificate_arn" --region "$AWS_REGION"
+
+	# Paso 6: Registrar certificado raíz
+	aws iot register-ca-certificate --ca-certificate "file://$CERT_OUTPUT_DIR/AmazonRootCA1.pem" --verification-cert 	"file://$CERT_OUTPUT_DIR/device-certificate.pem.crt" --set-as-active --region "$AWS_REGION"
+
+	echo "Dispositivo registrado correctamente."
+\end{lstlisting}
+\end{verbatim}
+
+La politica de acceso asociada al certificado del dispositivo le da persmisos para conectarse, publicar, suscribirse y recibir. En el fragmento de codigo ... se muestra la politica de acceso en formato JSON.
+
+\begin{lstlisting}[label=cod:policie_json,caption=Politica de acceso asociada a los certificados de los dispositivos.]
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "iot:Connect",
+        "iot:Publish",
+        "iot:Subscribe",
+        "iot:Receive"
+      ],
+      "Resource": [
+        "*"
+      ]
+    }
+  ]
+}
+\end{lstlisting}
+
+Para grabar en la memoria del dispositivo los certificados y llaves generados anteriromente, ademas de otros datos de importancia, se utiliza el generador de particiones NVS incluido en ESP-IDF. Este requiere un archivo de tipo \texttt{.csv} de donde obtiene toda la informacion que servira para generar un archivo binario que debera ser grabdo en la region de memoria correspondiente a la particion NVS. En los fragmentos de codigo ... y ..., se muestran el archivo certs.csv y el comando para generar el archivo binarion de la particion, respectivamente.
+
+\begin{lstlisting}[label=cod:policie_json,caption=Archivo nvs.csv.]
+key,type,encoding,value    
+certs,namespace,,  
+certificate,file,string,../main/certificates/certificate.pem.crt
+priv_key,file,string,../main/certificates/private.pem.key
+\end{lstlisting}
+
+\begin{lstlisting}[label=cod:policie_json,caption=Comando para crear una particion con el generador de particiones NVS]
+nvs_partition_gen.py generate "nvs.csv" nvs.bin 16384
+\end{lstlisting}
 
 \subsection{Bases de datos de series temporales con TimeStream}
+Para almacenar los datos de relevancia que los dispositivos conectados a IoT Core pueden generar, se utilizo TimeStream, de esta forma pueden ser accedidos por otros servicios para sus posterior procesamiento y visualizacion. Los pasos que se siguieron para implementar TimeStream fueron:
 
+\begin{enumerate}
+	\item Crear una base de datos de Timestream: se creo una base de datos con el nombre \texttt{iot} con las opciones que se muestran en la captura de pantalla de la figura \ref{fig:cc_ts_opt}
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.45]{./Figures/cc_ts_opt.png}
+		\caption{Captura de pantalla de la creacion de una base de datos en Timestream.}
+		\label{fig:cc_ts_opt}
+	\end{figure}
+	
+	\item Crear una tabla: dentoro de la base de datos \texttt{iot}, se creo una tabla de nombre \texttt{faceCount} para organizar los datos de series temporales de los dispositivos. En la figura \ref{fig:cc_ts_table} se muestran las opciones para la creacion de la tabla \texttt{faceCount}.
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.45]{./Figures/cc_ts_table.png}
+		\caption{Captura de pantalla de la creacion de una tabla en Timestream.}
+		\label{fig:cc_ts_table}
+	\end{figure}
+	
+	\item Ingesta de datos: para enviar datos a Timestream se creo un \textit{rule} en IoT Core que redirige los datos relevantes contenidos en los mensajes que llegan al \textit{broker} MQTT hacia la tabla \textit{faceCount} de la base de datos \textit{iot}. En el fragmento de codigo ... se muestra el codigo SQL necesario para extraer los datos que debe ser almacenados en la base de datos.
+\begin{lstlisting}[label=cod:policie_json,caption=Codigo SQL del \textit{rule} para .]
+SELECT payload.face AS face, payload.battery AS battery, payload.temperature AS temperature FROM 'faceCounter/data_in'
+\end{lstlisting}	
+	
+\end{enumerate}
 
 \subsection{Visualiación de datos con Grafana}
 
