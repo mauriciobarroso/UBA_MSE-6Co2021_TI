@@ -157,16 +157,15 @@ Es un servicio que se encuentra conceptualmente entre SaaS e IaaS al eliminar la
 \section{Motivación}
 Gracias a la amplia gama de plataformas de hardware y la disponibilidad de bibliotecas de código abierto para implementar AI, ML y DL, además de la difusión de información en foros y sitios web especializados, es posible desarrollar sistemas de visión artificial personalizados para distintos tipos de arquitecturas \cite{mot_emb}.
 
-Normalmente las bibliotecas de código para visión artificial no son aptas para cualquier dispositivo, ya que son muy grandes en tamaño y requieren de grandes capacidades de computo para ejecutarse en tiempo real. Pero los esfuerzos de empresas y personas . Algunas de sus aplicaciones más importantes son: industria 4.0, seguridad, vehículos autónomos y robótica.
+Normalmente las bibliotecas de código y los algoritmos para visión artificial no son aptos para dispostivos con poca cantidad de memoria y poder de computo reducido. Aunque gracias a los constantes avances en el desarrollo de herramientas para optmizar modelos de DL y arquitecturas de modelos mas eficientes y ligeras, es posible implementar estos algoritmos en dispositivos como microcontroladores.
 
-La motivación principal de este trabajo fue desarrollar un sistema embebido de bajo costo económico, bajo consumo energético y de código abierto, que integre algoritmos de DL para visión artificial enfocado en cumplir eficientemente la tarea de detección facial.
+La motivación principal de este trabajo fue desarrollar un sistema embebido de bajo costo económico, bajo consumo energético y de código abierto, que integre algoritmos de DL para visión artificial enfocados en cumplir eficientemente la tarea de detección facial.
 
 Una motivación adicional fue integrar otra tecnología actual como es IoT (\textit{Internet of Things}, Internet de las Cosas), para trabajar en conjunto con los algoritmos de visión artificial. Así las aplicaciones que se pueden obtener son más versátiles a la hora de su implementación en entornos urbanos.
 
 %----------------------------------------------------------------------------------------
 \section{Estado del arte}
-Como antecedente existe el trabajo de Ilhan Aydin y Nashwan Adnan Othman, denominado ``A new IoT combined face detection of people by using computer vision for security application
-`` \cite{soa_ref}. El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electrónico que tiene como componentes principales una Raspberry Pi 3, un sensor PIR (\textit{Passive Infra Red}, Pasivo Infrarrojo) y una cámara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de detección facial Haar Cascade [ref], para posteriormente guardar una imagen del rostro detectado y visualizarla en un teléfono móvil con ayuda de la aplicación Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
+Como antecedente existe el trabajo de Ilhan Aydin y Nashwan Adnan Othman, denominado ``A new IoT combined face detection of people by using computer vision for security application`` \cite{soa_ref}. El \textit{paper} donde se describe su trabajo presenta el desarrollo de un dispositivo electrónico que tiene como componentes principales una Raspberry Pi 3, un sensor pasivo infrarrojo (PIR, \textit{Passive Infra Red}) y una cámara. Su objetivo principal es detectar personas con ayuda del sensor de movimiento PIR, fotografiarlas y aplicar el algoritmo de detección facial Haar Cascade \cite{haar_cascade}, para posteriormente guardar una imagen del rostro detectado y visualizarla en un teléfono móvil con ayuda de la aplicación Telegram. En la figura \ref{fig:soa_arch} se puede observar el diagrama en bloques del sistema descrito anteriormente.
 
 \begin{figure}[h]
 	\centering
@@ -181,9 +180,9 @@ El objetivo principal de este trabajo fue desarrollar un sistema embebido con la
 
 El alcance de este trabajo incluyó:
 \begin{itemize}
-	\item Construcción de un prototipo de pruebas
-	\item Desarrollo e implementación de los modelos de AI necesarios
-	\item Implementación de los servicios en la nube necesarios
+	\item Contruir un prototipo de pruebas
+	\item Desarrollar e implementar los modelos de AI necesarios
+	\item Implementar los servicios en la nube necesarios
 \end{itemize}
 %----------------------------------------------------------------------------------------
 \section{Requerimientos}
@@ -191,12 +190,12 @@ Los requerimientos planteados para este trabajo fueron:
 \begin{enumerate}
 	\item Requerimientos funcionales
   \begin{enumerate}
-     	\item El sistema debe detectar y contar todos los rostros existentes de las imágenes obtenidas por su cámara con ayuda de las técnicas de procesamiento de imágenes pyramid image y slidding window, y modelos de DL que alcancen una precisión de al menos 80\%.
+     	\item El sistema debe detectar y contar todos los rostros existentes de las imágenes obtenidas por su cámara con ayuda de las técnicas de procesamiento de imágenes \textit{pyramid image} y \textit{slidding window}, y modelos de DL que alcancen una precisión de al menos 80\%.
 		\item El sistema debe conectarse a una red Wi-Fi existente a través de algún mecanismo de aprovisionamiento de credenciales de red.
 		\item El sistema debe establecer comunicación con los servidores de AWS.
 		\item El sistema debe ser alimentado mediante dos baterías AA de litio.
 		\item El sistema debe poseer mecanismos de seguridad implementados tanto en hardware como en firmware para evitar su manipulación incorrecta.
-		\item El sistema debe funcionar solamente si se detecta movimiento en el sector donde se encuentra instalada.
+		\item El sistema debe funcionar solamente si se detecta movimiento en el sector donde se encuentra instalado.
 	\end{enumerate}
 	\item Requerimientos no funcionales
 	\begin{enumerate}

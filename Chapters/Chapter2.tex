@@ -19,7 +19,7 @@ El sistema desarrollado en este trabajo consta de varios componentes de hardware
 En el sistema de la figura \ref{fig:sys_blocks}, cuando el sensor de movimiento detecta el movimiento de una persona genera una señal que notifica a la tarjeta de desarrollo sobre este evento. Entonces la tarjeta de desarrollo activa la cámara y obtiene una fotografía para procesarla. La imagen digital obtenida es procesada y utilizada como entrada para los modelos de DL. Cuando se obtienen las inferencias deseadas de los modelos, los resultados son procesados para transmitirlos hacia los servidores en la nube encargados de procesarlos y mostrarlos a los usuarios finales.
 
 \subsection{Tarjeta de desarrollo}
-El componente central del sistema es la tarjeta de desarrollo ESP32-S3-DevKitC-1-N8R8 de la empresa Espressif. Tiene como componente central el módulo ESP32-S3-WROOM-1-N8R8 y varios otros componentes que simplifican el proceso de desarrollo de aplicaciones para IoT. En la figura \ref{fig:devkit_comp} se observa una fotografía de la tarjeta con el detalle de sus componentes.
+El componente central del sistema es la tarjeta de desarrollo ESP32-S3-DevKitC-1-N8R8 de la empresa Espressif. Tiene como componente central el módulo ESP32-S3-WROOM-1-N8R8 basado en el sistema en chip (SoC, \textit{Systems on Chip}) ESP32-S3 y varios otros componentes que simplifican el proceso de desarrollo de aplicaciones para IoT. En la figura \ref{fig:devkit_comp} se observa una fotografía de la tarjeta con el detalle de sus componentes.
 
 \begin{figure}[h]
 	\centering
@@ -59,7 +59,7 @@ El módulo ESP32-S3-WROOM-1-N8R8 es un potente módulo MCU (\textit{Microcontrol
 
 En el mercado existen muchos fabricantes que ofrecen tarjetas de desarrollo de características técnicas que podrían haber sido utilizadas para el desarrollo de este trabajo. Sin ir muy lejos, Espressif, fabricante de la ESP32-S3-DevKitC-1-N8R8, tiene toda una familia de módulos y tarjetas muy similares entre sí. La elección de esta tarjeta en particular responde a los siguientes criterios:
 \begin{itemize}
-	\item Costo: Espressif ofrece en todos sus SoCs, módulos y tarjetas, un costo muy contenido por la gran cantidad de características ofrecidas.
+	\item Costo: Espressif ofrece en todos sus SoCs, módulos y tarjetas de desarrollo un costo muy contenido por la gran cantidad de características ofrecidas.
 	\item Redes neuronales: la serie de SoCs ESP32-S3 ofrece soporte para instrucciones vectoriales, que acelera las tareas de computación de redes neuronales. Esta fue la característica más importante al momento de la elección de esta tarjeta.
 	\item Memoria: como el trabajo implicaba el uso de una cámara y por tanto el manejo de \textit{buffers} de memoria de gran tamaño para manipular las imágenes obtenidas, la cantidad de memoria externa que ofrece esta tarjeta la hizo óptima para la aplicación.
 \end{itemize}
@@ -116,7 +116,7 @@ La elección del IRA-S230ST01 como sensor PIR responde a los siguientes criterio
 \end{itemize}
 
 \subsubsection{Amplificador operacional}
-El TLV8544 es un amplificador operacional cuadruple de ultra bajo consumo energético de la empresa Texas Instruments, de costo optimizado para aplicaciones de detección en equipos inalámbricos y cableados de bajo consumo. El diseño del TLV8544 minimiza el consumo energético en dispositivos como sensores de movimiento para sistemas de seguridad, donde el tiempo de vida de la batería que los alimenta es crítico. Su uso más común es en configuraciones de amplificadores de transimpedancia con resistencias de \textit{feedback} en el orden de los Mega ohms. Adicionalmente, tiene protección contra EMI (\textit{Electromagnetic Interference}, Interferencia Electromagnética) que reduce la sensibilidad a las señales de RF no deseadas de fuentes como teléfonos móviles, Wi-Fi y transmisores de radio \cite{opamp_info}. En la figura \ref{fig:opamp_photo} se puede observar una fotografía del TLV8544 en un encapsulado TSSOP-14.
+El TLV8544 es un amplificador operacional cuadruple de ultra bajo consumo de la empresa Texas Instruments, de costo optimizado para aplicaciones de detección en equipos inalámbricos y cableados de bajo consumo. El diseño del TLV8544 minimiza el consumo en dispositivos como sensores de movimiento para sistemas de seguridad, donde el tiempo de vida de la batería que los alimenta es crítico. Su uso más común es en configuraciones de amplificadores de transimpedancia con resistencias de \textit{feedback} en el orden de los Mega ohms. Adicionalmente, tiene protección contra EMI (\textit{Electromagnetic Interference}, Interferencia Electromagnética) que reduce la sensibilidad a las señales de RF no deseadas de fuentes como teléfonos móviles, Wi-Fi y transmisores de radio \cite{opamp_info}. En la figura \ref{fig:opamp_photo} se puede observar una fotografía del TLV8544 en un encapsulado TSSOP-14.
 
 \vspace*{50 px}
 
@@ -204,7 +204,7 @@ Los criterios para utilizar este módulo como cámara del sistema son los siguie
 
 %----------------------------------------------------------------------------------------
 \section{Redes Convolucionales en Cascada Multitarea}
-MTCNN (\textit{Multi-task Cascaded Convolutional Networks}, Redes Convolucionales en Cascada Multitarea) es un \textit{framework} basado el el \textit{paper} ``Joint Face Detection and Alignment using Multi-task Cascaded Convolutional Networks`` de Kaipeng Zhang, Zhanpeng Zhang, Zhifeng Li y Yu Qiao \cite{mtcnn_info}, está desarrollado para integrar las tareas de detección facial y alineamiento facial con ayuda de CNNs en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
+las redes convolucionales en cascada multitarea (MTCNN, (\textit{Multi-task Cascaded Convolutional Networks}) son un \textit{framework} basado el el \textit{paper} \cite{mtcnn_info}, estan desarrolladas para integrar las tareas de detección facial y alineamiento facial con ayuda de CNNs en cascada mediante aprendizaje multitarea. El proceso consta de tres etapas de CNNs que puede detectar rostros humanos, sus posiciones y las posiciones de sus rasgos faciales (nariz, ojos y boca). En la figura \ref{fig:mtcnn_pipe} se muestra el \textit{pipeline} utilizado en MTCNN.
 
 \begin{figure}[h]
 	\centering
@@ -214,7 +214,7 @@ MTCNN (\textit{Multi-task Cascaded Convolutional Networks}, Redes Convolucionale
 \end{figure}
 
 \subsection{Red de propuestas}
-También conocida como P-Net (\textit{Proposal Network}, Red Propositiva), esta etapa está compuesta de una FCN (\textit{Fully Convolutional Network}, Red Totalmente Convolucional). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box} a partir de varias escalas de la imagen original. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
+También conocida como P-Net (\textit{Proposal Network}), esta etapa está compuesta de una red totalmente convolucional (FCN, \textit{Fully Convolutional Network}). La diferencia entre una FCN y una CNN es que la FCN no utiliza una capa FC como parte de su arquitectura. Tiene la función de obtener ventanas candidatas y sus vectores de regresión de \textit{bounding box} a partir de varias escalas de la imagen original. La regresión de \textit{bounding box} es una técnica para predecir la localización de un cuadro delimitador en el que se encuentra el objeto que quiere ser detectado, en este caso rostros humanos. Una vez que se obtienen estos vectores, se realiza una operación conocida como NMS (\textit{Non Max Suppression}, Supresión no Máxima) para combinar las regiones superpuestas entre sí. Finalmente las ventanas candidatas resultantes pasan a la siguiente etapa. En la figura \ref{fig:mtcnn_pnet} se muestra la arquitectura de P-Net.
 
 \begin{figure}[h]
 	\centering
@@ -224,7 +224,7 @@ También conocida como P-Net (\textit{Proposal Network}, Red Propositiva), esta 
 \end{figure}
 	
 \subsection{Red de refinamiento}
-Esta es una CNN denominada R-Net (\textit{Refine Network}, Red de Refinamiento). Los candidatos provenientes de P-Net son la entrada de esta red. La arquitectura de R-Net reduce aún más el número de candidatos, realiza la calibración con regresión de \textit{bounding box} y emplea NMS para fusionar candidatos superpuestos. Para cada candidato de entrada, R-Net obtiene la probabilidad de si es un rostro o no, un vector de 4 elementos que es el \textit{bounding box} y un vector de 10 elementos que representan la localización de rasgos faciales. En la figura \ref{fig:mtcnn_rnet} se muestra la arquitectura de R-Net.
+Esta es una CNN denominada R-Net (\textit{Refine Network}). Los candidatos provenientes de P-Net son la entrada de esta red. La arquitectura de R-Net reduce aún más el número de candidatos, realiza la calibración con regresión de \textit{bounding box} y emplea NMS para fusionar candidatos superpuestos. Para cada candidato de entrada, R-Net obtiene la probabilidad de si es un rostro o no, un vector de 4 elementos que es el \textit{bounding box} y un vector de 10 elementos que representan la localización de rasgos faciales. En la figura \ref{fig:mtcnn_rnet} se muestra la arquitectura de R-Net.
 
 \begin{figure}[h]
 	\centering
@@ -234,7 +234,7 @@ Esta es una CNN denominada R-Net (\textit{Refine Network}, Red de Refinamiento).
 \end{figure}
 
 \subsection{Red de salida}
-Conocida como O-Net (\textit{Output Network}, Red de Salida), es muy similar a R-Net, pero está enfocada a describir el rostro con más detalle y generar las cinco localizaciones para ojos, boca y nariz. Su arquitectura se muestra en la figura \ref{fig:mtcnn_onet}.
+Conocida como O-Net (\textit{Output Network}), es muy similar a R-Net, pero está enfocada a describir el rostro con más detalle y generar las cinco localizaciones para ojos, boca y nariz. Su arquitectura se muestra en la figura \ref{fig:mtcnn_onet}.
 
 \begin{figure}[h]
 	\centering
@@ -247,7 +247,7 @@ Conocida como O-Net (\textit{Output Network}, Red de Salida), es muy similar a R
 Como se explicó en los puntos anteriores, MTCNN se compone de tres etapas que filtran ventanas candidatas y con la ayuda de NMS y calibración con los vectores de regresión de \textit{bounding box}, se detectan rostros y sus rasgos. Entonces, el propósito de MTCNN es cumplir con las siguientes tareas:
 \begin{itemize}
 	\item Clasificación rostro/no rostro: este es un problema de clasificación binaria que utiliza una función de pérdida de entropía cruzada.
-	\item Regresión de \textit{bounding box}: el objetivo de aprendizaje es un problema de regresión. Para cada candidato, se calcula el \textit{offset} entre el candidato y el \textit{ground truth} [ref] más cercano. La función de pérdida Euclidiana es utilizada para esta tarea.
+	\item Regresión de \textit{bounding box}: el objetivo de aprendizaje es un problema de regresión. Para cada candidato, se calcula el \textit{offset} entre el candidato y el \textit{ground truth} \cite{ground_truth} más cercano. La función de pérdida Euclidiana es utilizada para esta tarea.
 	\item Localización de rasgos faciales:es formulada como un problema de regresión en el que la función de perdida es la distancia Euclidiana.
 \end{itemize}
 
@@ -274,15 +274,14 @@ Para el desarrollo de aplicaciones de ML existen varias otras bibliotecas, algun
 
 %----------------------------------------------------------------------------------------
 \section{Servicios Web de Amazon}
-Más conocido como AWS (\textit{Amazon Web Services}, Servicio Web de Amazon) por sus siglas en inglés, es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
+Mejor conocido como AWS (\textit{Amazon Web Services}) por sus siglas en inglés, es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
 
 AWS está dividido en distintos tipos de servicios que pueden ser configurados según las necesidades de cada usuario. Estos servicios pueden dividirse en las siguientes categorías: computación, almacenamiento, bases de datos, administración de datos, migración, redes, herramientas de desarrollo, monitoreo, administración de \textit{big data}, analíticas, AI, desarrollo móvil, mensajería y notificaciones.
 
-De toda la extensa cantidad de servicios que ofrece AWS, para este trabajo se necesitaron sólo los siguientes: IoT Core y Amazon Timestream.
+De toda la extensa cantidad de servicios que ofrece AWS, para este trabajo se necesitaron sólo los servicios IoT Core y Timestream.
 
 \subsection{Servicio IoT Core}
 Proporciona los servicios en la nube necesarios para conectar dispositivos IoT entre sí y a los otros servicios de AWS \cite{iot_info}. AWS IoT proporciona software que puede ayudar a integrar dispositivos IoT en soluciones basadas en las herramientas de AWS. En la figura \ref{fig:aws_iot} se puede observar un diagrama de interconexión de dispositivos IoT y los servicios de AWS mediante IoT Core.
-
 
 \begin{figure}[h]
 	\centering
@@ -292,7 +291,7 @@ Proporciona los servicios en la nube necesarios para conectar dispositivos IoT e
 \end{figure}
 \footnotetext{Imagen tomada de: \url{https://docs.aws.amazon.com/iot/latest/developerguide/what-is-aws-iot.html}}
 
-IoT Core permite seleccionar las tecnologías más adecuadas y actualizadas para interconectar dispositivos IoT. Los protocolos de comunicación soportados son: MQTT (\textit{Message Queuing and Telemetry Transport}, Cola de Mensajes y Transporte de Telemetría), MQTT sobre WSS (\textit{Websocket Secure}, Websocket Seguro), HTTPS (\textit{Hypertext Transfer Protocol Secure}, Protocolo de Transferencia de Hipertexto Seguro) y LoRaWAN.
+IoT Core permite seleccionar las tecnologías más adecuadas y actualizadas para interconectar dispositivos IoT. Los protocolos de comunicación soportados son: MQTT, MQTT sobre WSS, HTTPS y LoRaWAN.
 
 El \textit{broker} de IoT Core admite dispositivos y clientes que utilizan MQTT y MQTT sobre WSS para publicar y suscribirse a algún tópico. También es compatible con dispositivos y clientes que utilizan HTTPS para publicar mensajes.
 
