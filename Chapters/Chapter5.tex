@@ -12,32 +12,36 @@
 %----------------------------------------------------------------------------------------
 
 \section{Conclusiones generales }
+En este trabajo se logró diseñar e implementar el prototipo de pruebas de un dispositivo con la capacidad de ejecutar MTCNN para cumplir con la tarea de detección facial y transmitir esta información hacia los servidores de AWS. También se desarrolló un \textit{dashboard} para visualizar la información del dispositivo mediante gráficos que facilitaron su comprensión.
 
-La idea de esta sección es resaltar cuáles son los principales aportes del trabajo realizado y cómo se podría continuar. Debe ser especialmente breve y concisa. Es buena idea usar un listado para enumerar los logros obtenidos.
 
-Algunas preguntas que pueden servir para completar este capítulo:
+Cabe destacar que este trabajo está implementado sobre un hardware con muchas limitaciones en capacidad de memoria y poder computo, pero que cumplió de muy buena manera los objetivos planteados. Otro punto importante del hardware fue su costo, que no superó los 15 \$us americanos y queda muy por debajo de dispositivos comerciales que cumplen funciones similares.
 
-\begin{itemize}
-\item ¿Cuál es el grado de cumplimiento de los requerimientos?
-\item ¿Cuán fielmente se puedo seguir la planificación original (cronograma incluido)?
-\item ¿Se manifestó algunos de los riesgos identificados en la planificación? ¿Fue efectivo el plan de mitigación? ¿Se debió aplicar alguna otra acción no contemplada previamente?
-\item Si se debieron hacer modificaciones a lo planificado ¿Cuáles fueron las causas y los efectos?
-\item ¿Qué técnicas resultaron útiles para el desarrollo del proyecto y cuáles no tanto?
-\end{itemize}
+
+La implementación de los algoritmos de DL fue una tarea que requirió mucho más tiempo y esfuerzo que el planificado. Fue necesario aprender conceptos sobre procesamiento de imágenes y visión artificial, para esto se realizaron varios cursos y se encararon proyectos más pequeños que sirvieron como punto de entrada para este. Uno de los cursos más útiles fue "Bootcamp: Visión Artificial para los ODS" de la organización Hackcities que tuvo una duración de 4 meses.
+
+
+Otro aspecto que retrasó el trabajo, aunque en menor medida, fue el despliegue de los servicios en la nube de AWS. Para utilizarlos fue imprescindible adquirir conocimientos sobre bases de datos y lenguaje SQL, que también fueron útiles al momento de implementar el \textit{dashboard} en Grafana.
+
+
+Casi la totalidad de los requerimientos funcionales y no funcionales del trabajo fueron cumplidos exitosamente. Solamente el requerimiento para implementar los mecanismos de seguridad en hardware y firmware no pudo ser cumplido. Los mecanismos de seguridad de firmware disponibles en el ESP32-S3 son la encriptación de los datos en la memoria \textit{flash} y la verificación de la autenticidad de las aplicaciones firmadas digitalmente grabadas en la memoria. Estos mecanismos para funcionar necesitan interactuar con los efuses, que son secciones de memoria no volátil y que solo pueden ser modificadas una sola vez, para determinar la configuración del ESP32-S3. Cuando estas características de seguridad son habilitadas, el proceso de compilación y grabado del binario en la memoria demora aproximadamente 3 veces más. Por tanto, si bien podía haberse implementado el requerimiento faltante, esto hubiera retrasado mucho el proceso de desarrollo y pruebas.
 
 
 %----------------------------------------------------------------------------------------
 %	SECTION 2
 %----------------------------------------------------------------------------------------
 \section{Próximos pasos}
-Esta memoria describe el proceso de diseño e implementación del prototipo de pruebas, que fue utilizado para comprobar la factibiliad técnica de todos los requerimientos funcionales planteados. Los proximos pasos de este trabajo tienen el objetivo de lograr un prototipo lo mas cercano posible a un dipositivo final que pueda ser comercializado, estos son:
-
+Esta memoria describe el proceso de diseño e implementación del prototipo de pruebas, que fue utilizado para comprobar la factibilidad técnica de todos los requerimientos funcionales planteados. Los siguientes pasos a nivel de hardware serían los siguientes:
 \begin{enumerate}
 	\item Incorporar componentes de hardware para controlar y monitorear el suministro de energía de las baterías.
-	\item Diseñar el diagrama esquematico
-	\item Seleccionar una carcasa adecuada al tamaño y entorno de aplicacion del dispositivo
+	\item Diseñar el diagrama esquemático.
+	\item Seleccionar una carcasa adecuada al tamaño y entorno de aplicación del dispositivo.
 	\item Diseñar un PCB cuyas dimensiones se correspondan con las de la carcasa.
-	\item Implementar \textit{flash encryption},y \textit{secure boot} en el ESP32-S3 para mejorar la seguridad del dispositivo.
-	\item Estudiar la factibilidad de utilziar FaceNet en el dispositivo para lograr que en conjunto con MTCNN realicen reconocimiento facial.
-	\item Estudiar la factibilidad de utilizar Amazon Rekognition para realizar reconocimiento facial en la nube.
+\end{enumerate}
+
+
+Si bien la tarea de detección facial se ejecutó de manera exitosa mediante el uso de MTCNN, esta puede ser empleada como punto de partida para lograr aplicaciones más interesante para lograr un producto comercial atractivo para el mercado. Los pasos a seguir para optimizar y aumentar las funcionalidades de los modelos de AI serían:
+\begin{enumerate}
+	\item Estudiar la factibilidad de utilizar FaceNet en el dispositivo para lograr que en conjunto con MTCNN realicen reconocimiento facial, reconocimiento de edad y género, o reconocimiento de emociones.
+	\item Estudiar la factibilidad de usar Amazon Rekognition para ejecutar reconocimiento facial en la nube.
 \end{enumerate}
