@@ -201,7 +201,7 @@ Estas pruebas consistieron en poner en funcionamiento el prototipo de pruebas y 
 	\label{fig:test_ulp1}
 \end{figure}
 
-La figura \ref{fig:test_ulp1} muestra el 1 ciclo de trabajo normal, es decir, que se mantiene en modo de bajo consumo hasta que detecta un movimiento válido mediante el sensor de movimiento y activa el procesador principal para realizar las tareas de detección facial y comunicación con los servicios en la nube. Cuando el dipositivo se encuentra en modo de bajo consumo cambia entre los estados Deep sleep y ULP cada 100 ms, donde en el estado ULP se ejecuta la máquina de estados que mitiga los errores causados por los falsos positivos generados por el sensor de movimiento. En la figura \ref{fig:test_ulp2} se exhibe con mayor detalle el funcionamiento cuando el dispositivo se encuentra en modo de bajo consumo.
+La figura \ref{fig:test_ulp1} muestra un funcionamiento normal del dipositivo, es decir, que se mantiene entre los modos ULP y \textit{deep sleep} hasta que detecta un movimiento válido mediante el sensor de movimiento y activa el procesador principal para realizar las tareas de detección facial y comunicación con los servicios en la nube. La transición entre los estados \textit{deep sleep} y ULP sucede cada 100 ms, como se muestra en la figura \ref{fig:test_ulp2}, donde en el estado ULP se ejecuta la máquina de estados que mitiga los errores causados por los falsos positivos generados por el sensor de movimiento.
 
 \clearpage
 
@@ -231,7 +231,7 @@ En la tabla \ref{tab:test_ulp} se detallan los consumos de corriente y los tiemp
 	\label{tab:test_ulp}
 \end{table}
 
-El evento que despierta al procesador principal para ejecutar las tareas de detección facial y comunicación con los servicios en la nube es asíncrono, es decir, que no es posible predecirlo y puede ocurrir muchas veces o muy pocas, por lo que no es posible medir una corriente promedio del dispositivo en general y por tanto tampoco se pudo establecer el tiempo que un par de baterías de litio AA podría alimentar el dispositivo.
+El evento que despierta al procesador principal para ejecutar las tareas de detección facial y comunicación con los servicios en la nube es asíncrono, es decir, que no es posible predecirlo, por lo que no fue posible medir una corriente promedio del dispositivo en general y por tanto tampoco se pudo establecer el tiempo que un par de baterías de litio AA podría alimentar el dispositivo.
 
 %----------------------------------------------------------------------------------------
 % SECTION 5
