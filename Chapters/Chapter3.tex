@@ -60,9 +60,9 @@ Para implementar MTCNN adecuadamente no basta con alimentar P-Net con las imáge
 El diagrama de la figura \ref{fig:mtcnn_npipe} muestra el \textit{pipeline} detallado de la red MTCNN, donde se pueden observar varios bloques de procesamiento, estos son:
 
 \begin{itemize}
-	\item \textit{Image pyramid}: genera a partir de la imagen de entrada otras imágenes de escalas inferiores, lo que permite detectar objetos de distintos tamaños. Cada nivel de escala se obtiene mediante la reducción de la escala anterior, por lo que las imágenes en niveles superiores tienen una escala más baja que las imágenes en niveles inferiores. Después de generadas las imágenes escaladas requeridas de la imagen de entrada, estas sirven para alimentar P-Net y así detectar rostros de distintos tamaños.
+	\item \textit{Image pyramid}: genera a partir de la imagen de entrada otras imágenes de escalas inferiores para detectar objetos de distintos tamaños. Cada nivel de escala se obtiene mediante la reducción de la escala anterior, por lo tanto las imágenes en niveles superiores tienen una escala más baja que las imágenes en niveles inferiores. Después de generadas las imágenes escaladas requeridas de la imagen de entrada, estas sirven para alimentar P-Net y así detectar rostros de distintos tamaños.
 
-	\item \textit{Post-process}: en este bloque se procesan los datos de salida generados por P-Net, R-Net y O-Net. El primer subbloque realiza la operación de NMS para reducir la cantidad de ventanas candidatas que tienen solapamiento entre ellas. El segundo subbloque aplica un proceso de calibración que utiliza los \textit{offsets} generados por los modelos para determinar de manera más precisa las coordenadas de las ventanas candidatas. Finalmente, el último subbloque corrige las coordenadas de las ventanas candidatas para que posean dimensiones cuadradas y estén dentro de los límites de la imagen original.
+	\item \textit{Post-process}: en este bloque se procesan los datos de salida generados por P-Net, R-Net y O-Net. El primer subbloque realiza la operación de NMS para reducir la cantidad de ventanas candidatas que tienen solapamiento entre ellas y cuyos \textit{scores} son superiores a un umbral preestablecido . El segundo subbloque aplica un proceso de calibración que utiliza los \textit{offsets} generados por los modelos para determinar de manera más precisa las coordenadas de los \textit{bounding boxes}. Finalmente, el último subbloque corrige las coordenadas de los \textit{bounding boxes} para que posean dimensiones cuadradas y estén dentro de los límites de la imagen original.
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.35]{./Figures/mtcnn_postprocess.png}
@@ -70,7 +70,7 @@ El diagrama de la figura \ref{fig:mtcnn_npipe} muestra el \textit{pipeline} deta
 		\label{fig:mtcnn_postprocess}
 	\end{figure}
 	
-	\item \textit{Pre-process}: tiene la función de procesar los datos de entrada para las redes R-Net y O-Net. El primer subbloque genera recortes de la imagen original en función de las coordenadas obtenidas del bloque \textit{post-process}. En el segundo subbloque las imágenes recortadas de entrada son redimensionadas con dimensiones de 24x24 píxeles y 48x48 píxeles para alimentar R-Net y O-Net, respectivamente.`
+	\item \textit{Pre-process}: tiene la función de procesar los datos de entrada para las redes R-Net y O-Net. El primer subbloque genera recortes de la imagen original en función de las coordenadas de los \textit{bounding boxes} obtenidas del bloque \textit{post-process}. En el segundo subbloque las imágenes recortadas de entrada son redimensionadas con dimensiones de 24x24 píxeles y 48x48 píxeles para alimentar R-Net y O-Net, respectivamente.
 	\begin{figure}[h]
 		\centering
 		\includegraphics[scale=0.35]{./Figures/mtcnn_preprocess.png}
@@ -80,7 +80,7 @@ El diagrama de la figura \ref{fig:mtcnn_npipe} muestra el \textit{pipeline} deta
 
 \end{itemize}
 
-P-Net, R-Net y O-Net fueron creados con ayuda de la biblioteca para redes neuronales Keras, que es parte del \textit{core} de TensorFlow, de acuerdo con lo expuesto en \cite{mtcnn_info}. Se generaron 3 modelos de P-Net con diferentes dimensiones para la imagen de entrada, de tal forma que pudieran detectarse rostros a una distancia de entre 1 y 3 metros. Con las arquitecturas definidas de los modelos, el siguiente paso natural en el desarrollo debería haber sido su entrenamiento con uno o varios \textit{datasets}, pero al ser MTCNN tan popular en el ámbito de detección facial se pudieron encontrar archivos de extensión \texttt{.h5} que contenían los \textit{weights} resultantes de un proceso de entrenamiento anterior. En el código \ref{cod:pnets_create} se pueden observar las líneas de código empleadas para crear los modelos de P-Net para TensorFlow.
+P-Net, R-Net y O-Net fueron creados con ayuda de la biblioteca para redes neuronales Keras, que es parte del \textit{core} de TensorFlow, de acuerdo con lo expuesto en \cite{mtcnn_info}. Se generaron tres modelos de P-Net con diferentes dimensiones para la imagen de entrada, de tal forma que pudieran detectarse rostros en una distancia de entre 1 y 3 metros. Con las arquitecturas definidas de los modelos, el siguiente paso natural en el desarrollo debería haber sido su entrenamiento con uno o varios \textit{datasets}, pero al ser MTCNN tan popular en el ámbito de detección facial se pudieron encontrar archivos de extensión \texttt{.h5} que contenían los \textit{weights} resultantes de un proceso de entrenamiento anterior \cite{weigths_repo}. En el código \ref{cod:pnets_create} se pueden observar las líneas de código empleadas para crear los modelos de P-Net para TensorFlow.
 
 \begin{lstlisting}[language=Python, label=cod:pnets_create, caption=Código para crear los modelos de P-Net con TensorFlow.]
 # Image parameters
@@ -112,7 +112,7 @@ Para que los modelos obtenidos pudieran ser ejecutados en el hardware objetivo d
 \end{figure}
 \footnotetext{Imagen tomada de: \url{https://www.tensorflow.org/lite/models/convert/}}
 
-Gracias a que todos los operadores utilizados en los modelos de TensorFlow eran compatibles con los operadores de TensorFlow Lite se realizó una conversión estándar, lo que posteriormente facilitó su implementación en el hardware destino.
+Debido a que todos los operadores utilizados en los modelos de TensorFlow eran compatibles con los operadores de TensorFlow Lite se realizó una conversión estándar, lo que posteriormente facilitó su implementación en el hardware destino.
 
 Durante el proceso de conversión se aplicaron optimizaciones que responden a una necesidad de reducir aún más el tamaño y la latencia de los modelos. Se hizo una optimización por cuantización, que se refiere a la reducción de la precisión de los números usados para representar los parámetros de los modelos, los cuales por defecto son flotantes de 32 bits. Las opciones de cuantización para los modelos se tomaron del diagrama de la figura \ref{fig:tf_quantization_tree}.
 
@@ -124,7 +124,7 @@ Durante el proceso de conversión se aplicaron optimizaciones que responden a un
 \end{figure}
 \footnotetext{Imagen tomada de: \url{https://www.tensorflow.org/lite/performance/model_optimization}}
 
-La cuantización utilizada para los modelos fue \textit{full integer quantization}, que reduce los picos de memoria utilizados y asegura la compatibilidad con dispositivos de hardware que no pueden utilizar punto flotante. Para este tipo de cuantización se necesitó crear un \textit{dataset} representativo, compuesto por un pequeño subconjunto (entre 100 a 500 muestras) del \textit{dataset} de entrenamiento. En el código \ref{cod:pnets_tflite} se expone el código empleado para la conversión de los modelos de P-Net en TensorFlow al formato TensorFlow Lite con cuantización a 8 bits.
+La cuantización utilizada para los modelos fue \textit{full integer quantization}, que reduce los picos de memoria utilizados y asegura la compatibilidad con dispositivos de hardware que no pueden utilizar punto flotante. Para este tipo de cuantización se necesitó crear un \textit{dataset} representativo, compuesto por un pequeño subconjunto de entre 100 a 500 muestras del \textit{dataset} de entrenamiento. En el código \ref{cod:pnets_tflite} se expone el código empleado para la conversión de los modelos de P-Net en TensorFlow al formato TensorFlow Lite con cuantización a 8 bits.
 
 \begin{lstlisting}[language=Python, label=cod:pnets_tflite, caption=Código para crear los modelos de P-Net con TensorFlow Lite con cuantización de 8 bits.]
 # List to store all P-Net int8 quantized models generated for all scales
@@ -262,7 +262,7 @@ onet_interpreter = &static_onet_interpreter;
 onet_interpreter->AllocateTensors();
 \end{lstlisting}
 
-Los modelos de P-Net y R-Net se inicializan de la misma forma que O-Net y una cosa a notar es la declaración de los operadores estrictamente necesarios para ejecutar estos modelos en las líneas 9 a 18. Otra aproximación más sencilla era utilizar \texttt{OpsResolver} para utilizar todos los operadores, pero esto hubiera supuesto una penalización en la cantidad de memoria RAM utilizada. En la figura \ref{fig:fw_tflite_ops} se puede observar una captura de pantalla de una página web generada con la herramienta de visualización de modelos de TensorFlow Lite que se encuentra en el repositorio oficial de TensorFLow Lite para microcontroladores\cite{tflm_repo}, donde se muestran los operadores empleados por O-Net.
+Los modelos de P-Net y R-Net se inicializan de la misma forma que O-Net y un aspecto a notar es la declaración de los operadores estrictamente necesarios para ejecutar estos modelos en las líneas 9 a 18. Otra aproximación más sencilla era utilizar \texttt{OpsResolver} para utilizar todos los operadores, pero esto hubiera supuesto una penalización en la cantidad de memoria RAM utilizada. En la figura \ref{fig:fw_tflite_ops} se puede observar una captura de pantalla de una página web generada con la herramienta de visualización de modelos de TensorFlow Lite que se encuentra en el repositorio oficial de TensorFLow Lite para microcontroladores\cite{tflm_repo}, donde se muestran los operadores empleados por O-Net.
 
 \begin{figure}[h]
 	\centering
@@ -347,7 +347,7 @@ El diagrama de la figura \ref{fig:fw_comm_flow} empieza con la inicialización d
 }
 \end{lstlisting}
 
-Cuando uno más rostros son detectados por la tarea de detección facial, esta información se transmite por MQTT. AWS IoT Core dispone de un \textit{broker} MQTT que implementa TLS \cite{tls_doc} para brindar seguridad en el intercambio de mensajes, por tanto, la autenticación y cifrado de datos necesita de certificados y llaves para llevarse a cabo. La llave privada y el certificado del dispositivo son generados en la plataforma AWS IoT Core y deben quedar grabadas en la memoria del ESP32-S3 para que puedan ser utilizadas en el código. La forma más simple de usar la llave y el certificado es añadirlas al binario de la aplicación durante el proceso de compilación, en la figura \ref{fig:fw_parttab1} se observa un diagrama representativo de la distribución de la memoria del ESP32-S3, donde los valores encima de los bloques son las posiciones de memoria donde se encuentran las particiones y los valores que se encuentran por debajo son la cantidad de memoria empleada.
+Cuando uno o más rostros son detectados por la tarea de detección facial, esta información se transmite por MQTT. AWS IoT Core dispone de un \textit{broker} MQTT que implementa TLS \cite{tls_doc} para brindar seguridad en el intercambio de mensajes, por tanto, la autenticación y cifrado de datos necesita de certificados y llaves para llevarse a cabo. La llave privada y el certificado del dispositivo son generados en la plataforma AWS IoT Core y deben quedar grabadas en la memoria del ESP32-S3 para que puedan ser utilizadas en el código. La forma más simple de usar la llave y el certificado es añadirlas al binario de la aplicación durante el proceso de compilación, en la figura \ref{fig:fw_parttab1} se observa un diagrama representativo de la distribución de la memoria del ESP32-S3, donde los valores encima de los bloques son las posiciones de memoria donde se encuentran las particiones y los valores que se encuentran por debajo son la cantidad de memoria empleada.
 
 \begin{figure}[h]
 	\centering
@@ -356,7 +356,7 @@ Cuando uno más rostros son detectados por la tarea de detección facial, esta i
 	\label{fig:fw_parttab1}
 \end{figure}
 
-En el diagrama de la figura \ref{fig:fw_parttab1} se puede observar un problema no menor con respecto a al proceso de actualizaciones OTA, que las actualizaciones sobreescribirán tanto el \textit{firmware} como el certificado y llave privada del dispositivo. Esto no sería problemático para un solo dispositivo, pero si existieran más dispositivos establecerían conexión con AWS IoT Core con el mismo certificado y llave privada, lo que supondría una grave falla de seguridad de la información. Para corregir esta falla de seguridad se optó por generar llaves y certificados únicos para cada dispositivo, y grabarlos en la memoria NVS en un \textit{namespace} llamado "certs", de esta forma el proceso de actualización OTA solo sobreescribirá el \textit{firmware} más no el certificado ni la llave. En la figura \ref{fig:fw_parttab2} se muestra el diagrama representativo de la memoria del ESP32-S3 utilizado en este trabajo.
+En el diagrama de la figura \ref{fig:fw_parttab1} se puede observar un problema con respecto al proceso de actualizaciones OTA, que estas sobreescribirán tanto el \textit{firmware} como el certificado y llave privada del dispositivo. Esto no sería problemático para un solo dispositivo, pero si existieran más dispositivos establecerían conexión con AWS IoT Core con el mismo certificado y llave privada, lo que supondría una grave falla de seguridad de la información. Para corregir esta falla de seguridad se optó por generar llaves y certificados únicos para cada dispositivo, y grabarlos en la memoria NVS en un \textit{namespace} nombrado certs, de esta forma el proceso de actualización OTA solo sobreescribirá el \textit{firmware} más no el certificado ni la llave. En la figura \ref{fig:fw_parttab2} se muestra el diagrama representativo de la memoria del ESP32-S3 utilizado en este trabajo.
 
 \begin{figure}[h]
 	\centering
@@ -554,7 +554,7 @@ Para que los dispositivos se conecten a IoT Core para recibir y transmitir mensa
 	\item Adjuntar políticas de acceso al certificado: el certificado del dispositivo debe ser adjuntado a una determinada política de acceso para que el dispositivo pueda interactuar con los servicios de AWS requeridos.
 \end{enumerate}
 
-Todos estos pasos pueden realizarse manualmente a través de la consola web de AWS, pero no resulta un proceso adecuado cuando se desea registrar muchos dispositivos. En cambio, para este trabajo se creó un \textit{script} que utiliza la interface por línea de comandos AWS (aws-cli) \cite{awscli_info} para automatizar esta tarea. En el código \ref{cod:bash_script} se puede observar el código de este \textit{script}.
+Todos estos pasos pueden realizarse manualmente a través de la consola web de AWS, pero no resulta un proceso adecuado cuando se desea registrar muchos dispositivos. En cambio, para este trabajo se creó un \textit{script} que utiliza la interfaz por línea de comandos AWS (aws-cli) \cite{awscli_info} para automatizar esta tarea. En el código \ref{cod:bash_script} se puede observar el código de este \textit{script}.
 
 \begin{lstlisting}[language=bash, label=cod:bash_script, caption=\textit{Script} para automatizar el registro de un dispositivo en AWS IoT Core]
 #!/bin/bash
@@ -587,7 +587,7 @@ BEGIN { OFS = FS }
 
 La política de acceso asociada al certificado del dispositivo le da permisos para conectarse, publicar, suscribirse y recibir. En el código \ref{cod:policie_json} se muestra la política de acceso en formato JSON.
 
-\begin{lstlisting}[label=cod:policie_json,caption=Politica de acceso asociada a los certificados de los dispositivos.]
+\begin{lstlisting}[label=cod:policie_json,caption=Política de acceso asociada a los certificados de los dispositivos.]
 {
   "Version": "2012-10-17",
   "Statement": [
@@ -649,7 +649,7 @@ SELECT payload.face AS face, payload.battery AS battery, payload.temperature AS 
 \end{enumerate}
 
 \subsection{Visualiación de datos con Grafana}
-Una vez creada la base de datos de series temporales para almacenar los datos del dispositivo, puede ser utilizada para ofrecer sus datos a otros servicios, en este caso Grafana. Grafana ofrece integración con Timestream a través del uso de \textit{plugins} y credenciales de acceso a AWS, donde los datos almacenados pueden ser accedidos con el uso del lenguaje SQL. Para visualizar datos con Grafana se deben generar \textit{dashboards} que, a través de elementos de visualización que resultan comprensibles para los usuarios finales. El \textit{dashboard} creado está compuesto por 2 elementos de visualización: 1 gráfico de series de tiempo para los datos de rostros detectados, junto con 2 gráficos indicadores para los datos de estado de la batería y temperatura del dispositivo. En la figura \ref{fig:gr_dashboard} se muestra el \textit{dashboard} creado para este trabajo, mientras que en el código \ref{cod:grafana_sql} se encuentra el código SQL para obtener los datos sobre los rostros detectados de Timestream.
+Una vez creada la base de datos de series temporales para almacenar los datos del dispositivo, puede ser utilizada para ofrecer sus datos a otros servicios, en este caso Grafana. Grafana ofrece integración con Timestream a través del uso de \textit{plugins} y credenciales de acceso a AWS, donde los datos almacenados pueden ser accedidos con el uso del lenguaje SQL. Para visualizar datos con Grafana se deben generar \textit{dashboards} que, a través de elementos de visualización que resultan comprensibles para los usuarios finales. El \textit{dashboard} creado está compuesto por dos elementos de visualización: un gráfico de series de tiempo para los datos de rostros detectados, junto con dos gráficos indicadores para los datos de estado de la batería y temperatura del dispositivo. En la figura \ref{fig:gr_dashboard} se muestra el \textit{dashboard} creado para este trabajo, mientras que en el código \ref{cod:grafana_sql} se encuentra el código SQL para obtener los datos sobre los rostros detectados de Timestream.
 
 \begin{figure}[h]
 	\centering

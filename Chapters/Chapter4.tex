@@ -20,9 +20,9 @@ Para llevar a cabo pruebas y mediciones precisas sobre el sistema, fue necesario
 
 Los componentes que conforman el banco de pruebas según la figura \ref{fig:test_bench} son:
 \begin{itemize}
-	\item Laptop: cumple la función de ejecutar el software necesario para ejecutar las pruebas, monitorear y controlar todos los periféricos conectados mediante USB.
+	\item Laptop: cumple la función de ejecutar el \textit{software} necesario para ejecutar las pruebas, monitorear y controlar todos los periféricos conectados mediante USB.
 	\item Osciloscopio digital: TDS200C de Tektronix, es el instrumento utilizado para visualizar y medir las señales eléctricas generadas por el sistema. Su función principal para este trabajo fue evaluar las señales generadas por el sensor de movimiento.
-	\item PPK2: Power Profiler Kit 2 de Texas Instruments, es un \textit{datalogger} enfocado en la medición de corrientes muy pequeñas y sirivió para evaluar el consumo de corriente cosumido por el dispositivo.
+	\item PPK2: Power Profiler Kit 2 de Texas Instruments, es un \textit{datalogger} enfocado en la medición de corrientes muy pequeñas y sirivió para evaluar el consumo de corriente del dispositivo.
 	\item DUT: es el prototipo de pruebas en sí, sobre este se realizan todas las pruebas y mediciones con todos las herramientas del banco de pruebas.
 \end{itemize}
 
@@ -30,7 +30,7 @@ Los componentes que conforman el banco de pruebas según la figura \ref{fig:test
 % SECTION 2
 %----------------------------------------------------------------------------------------
 \section{Pruebas sobre los modelos}
-Estas pruebas tuvieron el objetivo de ensayar el \textit{pipeline} donde se encuentran los modelos de MTCNN para detección facial obtenidos para TensorFlow, TensorFlow Lite sin cuantización y TensorFlow Lite con cuantización a 8 bits y TensorFlow Lite Micro con cuantización a 8 bits. La figura \ref{fig:test_image} presenta una imagen que contiene 3 rostros de formato RGB888 y dimensiones 96x96 píxeles, que fue utilizada como entrada para los \textit{pipelines} a probar.
+Estas pruebas tuvieron el objetivo de ensayar el \textit{pipeline} donde se encuentran los modelos de MTCNN para detección facial obtenidos para TensorFlow, TensorFlow Lite sin cuantización, TensorFlow Lite con cuantización a 8 bits y TensorFlow Lite Micro con cuantización a 8 bits. La figura \ref{fig:test_image} presenta una imagen que contiene tres rostros de formato RGB888 y dimensiones 96x96 píxeles, que fue utilizada como entrada para los \textit{pipelines} a probar.
 
 \begin{figure}[h]
 	\centering
@@ -39,7 +39,7 @@ Estas pruebas tuvieron el objetivo de ensayar el \textit{pipeline} donde se encu
 	\label{fig:test_image}
 \end{figure}
 
-Para probar los modelos para TensorFlow, TensorFlow Lite sin cuantización y TensorFlow Lite con cuantización a 8 bits, se utilizó Google Colab en conjunto con el \textit{framework} TensorFlow en lenguajes Python y varias bibliotecas para visualización de imágenes. En las figuras \ref{fig:test_tf_pnet}, \ref{fig:test_tf_rnet} y \ref{fig:test_tf_onet} se muestran los resultados obtenidos.
+Para probar los modelos para TensorFlow, TensorFlow Lite sin cuantización y TensorFlow Lite con cuantización a 8 bits, se utilizó Google Colab en conjunto con el \textit{framework} TensorFlow en lenguaje Python y algunas bibliotecas para visualización de imágenes. En las figuras \ref{fig:test_tf_pnet}, \ref{fig:test_tf_rnet} y \ref{fig:test_tf_onet} se muestran los resultados obtenidos.
 
 \begin{figure}[!htpb]
      \centering
@@ -154,7 +154,7 @@ Para probar el \textit{pipeline} y los modelos de MTCNN para TensorFlow Lite Mic
         \label{fig:test_tflm}
 \end{figure}
 
-Los resultados obtenidos de las pruebas en Google Colab fueron los esperados. A medida que los modelos se iban optimizando en tamaño y tiempo de respuesta, la precisión de los resultados se reducía. Para las pruebas realizadas sobre el prototipo de pruebas, los resultados también estuvieron acordes a lo planeado, si bien el tamaño es el más pequeño posible, los tiempos de inferencia son mucho más altos que para los modelos probados en Google Colab, esto por las limitaciones de hardware del ESP32-S3, aun así los resultados finales son muy similares. En la tabla \ref{tab:test_tf_models} se exponen los resultados para todas las pruebas sobre los modelos.
+Los resultados obtenidos de las pruebas en Google Colab fueron los esperados. A medida que los modelos se iban optimizando en tamaño y tiempo de respuesta, la precisión de los resultados se reducía. Para las pruebas realizadas sobre el prototipo de pruebas, los resultados también estuvieron acordes a lo planeado, si bien el tamaño es el más pequeño posible, los tiempos de inferencia son mucho más altos que para los modelos probados en Google Colab, debido a las limitaciones de hardware del ESP32-S3, aun así los resultados finales son muy similares. En la tabla \ref{tab:test_tf_models} se exponen los resultados para todas las pruebas sobre los modelos.
 
 \begin{table}[h]
 	\centering
@@ -192,7 +192,7 @@ Como se puede observar de la figura \ref{fig:test_pir} se generaron señales de 
 % SECTION 4
 %----------------------------------------------------------------------------------------
 \section{Pruebas de consumo energético sobre el sistema}
-Estas pruebas consistieron en poner en funcionamiento el prototipo de pruebas y medir el consumo de corriente para determinar si todas las técnicas de bajo consumo fueron aplicadas correctamente. Como se mostró en la figura \ref{fig:ulp_modes} el sistema durante su funcionamiento realiza transiciones entre 3 estados distintos, donde cada estado tiene un consumo de corriente diferente. Con ayuda del PPK2 y del software nRF Connect for Desktop con su módulo Power Profile, se midió el consumo de corriente del sistema durante un tiempo de 5 minutos, donde fue activado en varias ocasiones mediante el sensor de movimiento. En la figura \ref{fig:test_ulp2} se observa un gráfico donde se puede apreciar el comportamiento del sistema a través de la forma en como cambia su consumo de corriente con relación al tiempo.
+Estas pruebas consistieron en poner en funcionamiento el prototipo de pruebas y medir el consumo de corriente para determinar si todas las técnicas de bajo consumo fueron aplicadas correctamente. Como se mostró en la figura \ref{fig:ulp_modes} el sistema durante su funcionamiento realiza transiciones entre 3 estados distintos, donde cada estado tiene un consumo de corriente diferente. Con ayuda del PPK2 y del software nRF Connect for Desktop con su módulo Power Profile, se midió el consumo de corriente del sistema durante un tiempo de 5 minutos, donde fue activado en varias ocasiones mediante el sensor de movimiento. En la figura \ref{fig:test_ulp2} se observa un gráfico donde se puede apreciar el comportamiento del sistema a través del cambio de la forma de la corriente de consumo con relación al tiempo.
 
 \begin{figure}[h]
 	\centering
@@ -237,7 +237,7 @@ El evento que despierta al procesador principal para ejecutar las tareas de dete
 % SECTION 5
 %----------------------------------------------------------------------------------------
 \section{Pruebas sobre los servicios en la nube}
-Las pruebas sobre los servicios en la nube se basaron en simular la conexión y publicación de mensajes de 3 dispositivos distintos por un lapso de 10 minutos. La simulación de los dispositivos se hizo con ayuda del \textit{script} de Python mostrado en \ref{cod:test_iot}, que tiene la función de conectarse al broker de Iot Core y publicar 15 mensajes en un lapso 15 minutos para cada uno de los dispositivos a simular.
+Las pruebas sobre los servicios en la nube se basaron en simular la conexión y publicación de mensajes de tres dispositivos distintos por un lapso de 10 minutos. La simulación de los dispositivos se hizo con ayuda del \textit{script} de Python mostrado en \ref{cod:test_iot}, que tiene la función de conectarse al broker de Iot Core y publicar 15 mensajes en un lapso 15 minutos para cada uno de los dispositivos a simular.
 
 \begin{lstlisting}[language=Python, label=cod:test_iot, caption=Código del \textit{script} para probar IoT Core.]
 from random import random
