@@ -158,7 +158,7 @@ Los resultados obtenidos de las pruebas en Google Colab fueron los esperados. A 
 
 \begin{table}[h]
 	\centering
-	\caption[Resultados de las pruebas sobre los modelos]{Resultados de las pruebas sobre los modelos}
+	\caption[Resultados de las pruebas sobre los modelos]{Resultados de las pruebas sobre los modelos.}
 	\begin{tabular}{lcc}   
 		\toprule
 		\textbf{Modelo} & \textbf{Rostros encontrados} & \textbf{Tiempo de ejecución MTCNN (ms)} \\
@@ -217,14 +217,14 @@ En la tabla \ref{tab:test_ulp} se detallan los consumos de corriente y los tiemp
 
 \begin{table}[h]
 	\centering
-	\caption[Consumo de corriente del dispositivo]{Consumo de corriente aproximado de todos los modos del dispositivo}
+	\caption[Consumo de corriente del dispositivo]{Consumo de corriente aproximado de todos los modos del dispositivo.}
 	\begin{tabular}{lccc}   
 		\toprule
 		\textbf{Estado} & \textbf{Consumo promedio (mA)} & \textbf{Consumo máximo (mA)} & \textbf{Tiempo (s)} \\
 		\midrule
-		Normal & 97.31 & 478.21 & 22.8 \\
-		ULP & 0.247 & 0.310 & 0.003 \\
-		\textit{Deep sleep} & 0.112 & 0.121 & 0.1 \\
+		Normal & 97,31 & 478,21 & 22,8 \\
+		ULP & 0,247 & 0,310 & 0,003 \\
+		\textit{Deep sleep} & 0,112 & 0,121 & 0,1 \\
 		\bottomrule
 		\hline
 	\end{tabular}
@@ -237,7 +237,7 @@ El evento que despierta al procesador principal para ejecutar las tareas de dete
 % SECTION 5
 %----------------------------------------------------------------------------------------
 \section{Pruebas sobre los servicios en la nube}
-Las pruebas sobre los servicios en la nube se basaron en simular la conexión y publicación de mensajes de tres dispositivos distintos por un lapso de 10 minutos. La simulación de los dispositivos se hizo con ayuda del \textit{script} de Python mostrado en \ref{cod:test_iot}, que tiene la función de conectarse al broker de Iot Core y publicar 15 mensajes en un lapso 15 minutos para cada uno de los dispositivos a simular.
+Las pruebas sobre los servicios en la nube se basaron en simular la conexión y publicación de mensajes de tres dispositivos distintos por un lapso de 10 minutos. La simulación de los dispositivos se hizo con ayuda del \textit{script} de Python mostrado en \ref{cod:test_iot}, que tiene la función de conectarse al broker de Iot Core y publicar 15 mensajes en un lapso de 15 minutos para cada uno de los dispositivos a simular.
 
 \begin{lstlisting}[language=Python, label=cod:test_iot, caption=Código del \textit{script} para probar IoT Core.]
 from random import random

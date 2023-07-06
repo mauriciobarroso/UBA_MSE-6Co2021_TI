@@ -38,14 +38,16 @@ La inteligencia artificial es un área de la computación que permite a los sist
 \end{itemize}
 
 \subsection{Aprendizaje automático}
-El aprendizaje automático es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos para construir sistemas con la habilidad de aprender automáticamente y mejorar a partir de experiencias previas sin ser explícitamente programados para esto \cite{ml_def}. Muchos de los servicios de recomendación empleados por empresas como Netflix, YouTube o Spotify, utilizan ML para adaptarse a un usuario en particular y ofrecer una mejor experiencia más personalizada \cite{ml_apps}. Estos algoritmos pueden ser clasificados de la siguiente manera \cite{ml_types}
+El aprendizaje automático es un subconjunto de AI que utiliza algoritmos de aprendizaje estadísticos para construir sistemas con la habilidad de aprender automáticamente y mejorar a partir de experiencias previas sin ser explícitamente programados para esto \cite{ml_def}. Muchos de los servicios de recomendación empleados por empresas como Netflix, YouTube o Spotify, utilizan ML para adaptarse a un usuario en particular y ofrecer una mejor experiencia más personalizada \cite{ml_apps}. Estos algoritmos pueden ser clasificados de la siguiente manera \cite{ml_types}:
 \begin{itemize}
-	\item Aprendizaje supervisado: se refiere al aprendizaje modelos a partir de un conjunto de datos, mejor conocidos como \textit{dataset}, cuyas respuestas son conocidas con antelación y están asociadas a una etiqueta o \textit{label}. Por ejemplo, el \textit{dataset} pueden ser muchas fotografías de gatos y el \textit{label} asociado el nombre de este animal. De esta manera el modelo es entrenado para generar predicciones de datos nuevos.
+	\item Aprendizaje supervisado: se refiere al aprendizaje de modelos a partir de un conjunto de datos, mejor conocidos como \textit{dataset}, cuyas respuestas son conocidas con antelación y están asociadas a una etiqueta o \textit{label}. Por ejemplo, el \textit{dataset} pueden ser muchas fotografías de gatos y el \textit{label} asociado el nombre de este animal. De esta manera el modelo es entrenado para generar predicciones de datos nuevos.
 	
 	\item Aprendizaje no supervisado: es usado cuando los datos utilizados para el aprendizaje no tienen \textit{labels}. Su objetivo principal es aprender acerca de los datos e inferir patrones sin ningún tipo de referencia sobre las respuestas esperadas. Es mayormente empleado como parte del análisis exploratorio de datos \cite{ai_ml_dl}.
 	
 	\item Aprendizaje reforzado: es el aprendizaje mediante la interacción continua con el entorno con el método de prueba y error, y utiliza continuamente la retroalimentación de sus acciones y experiencias previas. Este tipo de aprendizaje emplea recompensas si se realizan acciones correctas y penalizaciones si son incorrectas.
 \end{itemize}
+
+\newpage
 
 \subsection{Aprendizaje profundo}
 El aprendizaje profundo es una técnica de ML que está inspirada en la forma en la que el cerebro humano filtra información \cite{dl_def}. Cómo DL procesa información de manera similar al cerebro humano, sus aplicaciones son tareas que un humano generalmente realiza, como distinguir entre un peatón o un poste de luz en el caso de automóviles autónomos. El componente principal de DL son las redes neuronales artificiales, que son capas de nodos interconectados, donde existe una capa de entrada, una o varias capas ocultas y una capa de salida. En la figura \ref{fig:dl_nn} se puede observar la arquitectura de una red neuronal artificial.
@@ -102,7 +104,7 @@ En la figura \ref{fig:cnn_conv} se puede observar la operación de convolución 
 \footnotetext{Imagen tomada de: \url{https://towardsdatascience.com/a-comprehensive-guide-to-convolutional\\-neural-networks-the-eli5-way-3bd2b1164a53}}
 
 \subsection{Capa de \textit{pooling}}
-Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio. Existen dos tipos de dos tipos: \textit{max pooling} y \textit{Average pooling}. El primero retorna el valor máximo de una porción de la imagen cubierta por el \textit{kernel} y el segundo el valor promedio o \textit{average}. \textit{Max pooling} también funciona como supresor de ruido al mismo tiempo que reduce la dimensionalidad. Mientras que \textit{average pooling} solo sirve para reducir la dimensionalidad. En la figura \ref{fig:cnn_pool} se pueden observar estos tipos de \textit{pooling}.
+Similar a la capa de convoluciones, tiene el objetivo de reducir la dimensionalidad de los \textit{features} obtenidos mediante las convoluciones aplicadas en la capa anterior, para reducir el poder computacional requerido en un principio. Existen de dos tipos: \textit{max pooling} y \textit{Average pooling}. El primero retorna el valor máximo de una porción de la imagen cubierta por el \textit{kernel} y el segundo el valor promedio o \textit{average}. \textit{Max pooling} también funciona como supresor de ruido al mismo tiempo que reduce la dimensionalidad. Mientras que \textit{average pooling} solo sirve para reducir la dimensionalidad. En la figura \ref{fig:cnn_pool} se pueden observar estos tipos de \textit{pooling}.
 
 \begin{figure}[h]
 	\centering
@@ -157,7 +159,7 @@ Es un servicio que se encuentra conceptualmente entre SaaS e IaaS al eliminar la
 \section{Motivación}
 Gracias a la amplia gama de plataformas de hardware y la disponibilidad de bibliotecas de código abierto para implementar AI, ML y DL, además de la difusión de información en foros y sitios web especializados, es posible desarrollar sistemas de visión artificial personalizados para distintos tipos de arquitecturas \cite{mot_emb}.
 
-Normalmente las bibliotecas de código y los algoritmos para visión artificial no son aptos para dispostivos con poca cantidad de memoria y poder de computo reducido. Aunque gracias a los constantes avances en el desarrollo de herramientas para optmizar modelos de DL y arquitecturas de modelos mas eficientes y ligeras, es posible implementar estos algoritmos en dispositivos como microcontroladores.
+Normalmente las bibliotecas de código y los algoritmos para visión artificial no son aptos para dispostivos con poca cantidad de memoria y poder de computo reducido. Aunque gracias a los constantes avances en el desarrollo de herramientas para optmizar modelos de DL y arquitecturas de modelos más eficientes y ligeras, es posible implementar estos algoritmos en dispositivos como microcontroladores.
 
 La motivación principal de este trabajo fue desarrollar un sistema embebido de bajo costo económico, bajo consumo energético y de código abierto, que integre algoritmos de DL para visión artificial enfocados en cumplir eficientemente la tarea de detección facial.
 
@@ -170,7 +172,7 @@ Como antecedente existe el trabajo de Ilhan Aydin y Nashwan Adnan Othman, denomi
 \begin{figure}[h]
 	\centering
 	\includegraphics[scale=0.4]{./Figures/soa_arch.png}
-	\caption{Diagrama en bloques del sistema propuesto en \cite{soa_ref}}
+	\caption{Diagrama en bloques del sistema propuesto en \cite{soa_ref}.}
 	\label{fig:soa_arch}
 \end{figure}
 
@@ -180,9 +182,9 @@ El objetivo principal de este trabajo fue desarrollar un sistema embebido con la
 
 El alcance de este trabajo incluyó:
 \begin{itemize}
-	\item Contruir un prototipo de pruebas
-	\item Desarrollar e implementar los modelos de AI necesarios
-	\item Implementar los servicios en la nube necesarios
+	\item Construir un prototipo de pruebas.
+	\item Desarrollar e implementar los modelos de AI necesarios.
+	\item Implementar los servicios en la nube necesarios.
 \end{itemize}
 %----------------------------------------------------------------------------------------
 \section{Requerimientos}
@@ -199,7 +201,7 @@ Los requerimientos planteados para este trabajo fueron:
 	\end{enumerate}
 	\item Requerimientos no funcionales
 	\begin{enumerate}
-		\item El sistema debe tener un costo de desarrollo igual o menor a US\$200.
+		\item El sistema debe tener un costo de desarrollo igual o menor a US\$ 200.
 		\item El sistema debe tener documentación adecuada sobre su uso y desarrollo.
 	\end{enumerate}
 \end{enumerate}

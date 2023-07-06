@@ -29,11 +29,11 @@ El componente central del sistema es la tarjeta de desarrollo ESP32-S3-DevKitC-1
 \end{figure}
 \footnotetext{Imagen tomada de: \url{https://docs.espressif.com/projects/esp-idf/en/latest/esp32s3/hw-reference/esp32s3/user-guide-devkitc-1.html}}
 
-El módulo ESP32-S3-WROOM-1-N8R8 es una potente módulo de unidad de microcontrolador (MCU, \textit{Microcontroller Unit}) de doble núcleo que incorpora Wi-Fi y Bluetooth de baja energía (BLE, (\textit{Bluetooth Low Energy}) y tiene un amplio conjunto de periféricos. Sus especificaciones técnicas más relevantes se detallan en la tabla \ref{tab:devkit_specs}.
+El módulo ESP32-S3-WROOM-1-N8R8 es un potente módulo que incorpora un microcontrolador (MCU, \textit{Microcontroller Unit}) de doble núcleo con conectividad Wi-Fi y Bluetooth de baja energía (BLE, \textit{Bluetooth Low Energy}), además posee un amplio conjunto de periféricos. Sus especificaciones técnicas más relevantes se detallan en la tabla \ref{tab:devkit_specs}.
 
 \begin{table}[h]
 	\centering
-	\caption[ESP32-S3-DevKitC-1 especificaciones]{Tabla de especificaciones del ESP32-S3-DevKitC-1 \cite{devkit_info}}
+	\caption[ESP32-S3-DevKitC-1 especificaciones]{Tabla de especificaciones del ESP32-S3-DevKitC-1 \cite{devkit_info}.}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
@@ -50,7 +50,7 @@ El módulo ESP32-S3-WROOM-1-N8R8 es una potente módulo de unidad de microcontro
 		Wi-Fi & 802.11 b/g/n hasta 150 Mbps \\
 		Bluetooth & Bluetooth 5 y Bluetooth \textit{mesh} \\
 		Periféricos & \begin{tabular}{@{}c@{}} GPIO, I2C, SPI, interfaz LCD, \\ interfaz de cámara, UART, I2S, USB, PWM, ADC, \\ sensor táctil, sensor de temperatura, timer y \textit{watchdogs} \end{tabular} \\
-	 	Rango de temperatura &  –40 \textcelsius  a 65 \textcelsius \\
+	 	Rango de temperatura &  –40 \textcelsius\ a 65 \textcelsius \\
 		\bottomrule
 		\hline
 	\end{tabular}
@@ -91,18 +91,18 @@ En la tabla \ref{tab:pir_specs} se detallan sus características técnicas más 
 
 \begin{table}[h]
 	\centering
-	\caption[IRA-S230ST01 especificaciones]{Tabla de especificaciones del IRA-S230ST01 \cite{pir_info}}
+	\caption[IRA-S230ST01 especificaciones]{Tabla de especificaciones del IRA-S230ST01 \cite{pir_info}.}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
 		\midrule
-		Rango de temperatura & -40 \textcelsius  a 70 \textcelsius\\
+		Rango de temperatura & -40 \textcelsius\ a 70 \textcelsius\\
 		SNR & 40 dB \\
-		Campo de vision & theta1=theta2=45 grados \\
+		Campo de visión & theta1=theta2=45 grados \\
 		Electrodo & (2.0x1.0mm)x2 \\
 		Responsividad & 4.6 mV \\
 		Filtro óptico & 5 \textmu m paso alto \\
-		Fuente de alimentacion & 2 V a 15 V \\
+		Fuente de alimentación & 2 V a 15 V \\
 		\bottomrule
 		\hline
 	\end{tabular}
@@ -132,13 +132,13 @@ Las características técnicas más importantes del TLV8544 se presentan en la t
 
 \begin{table}[h]
 	\centering
-	\caption[TLV8544 especificaciones]{Tabla de especificaciones del TLV8544 \cite{opamp_info}}
+	\caption[TLV8544 especificaciones]{Tabla de especificaciones del TLV8544 \cite{opamp_info}.}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
 		\midrule
 		Número de canales & 4 \\
-		Fuente de alimentación & 1.7 V a 3.6 V \\
+		Fuente de alimentación & 1,7 V a 3,6 V \\
 		Corriente de salida por canal & 30 mA \\
 		Corriente de operación & 500 nA \\
 		CMMR (\textit{Common Mode Rejection Ratio}, \\ Relación de Rechazo del Modo Común) & 90 dB \\
@@ -174,20 +174,20 @@ El OV2640 de la empresa OmniVision es un sensor semiconductor de óxido metal co
 
 \begin{table}[h]
 	\centering
-	\caption[OV2640 especificaciones]{Tabla de especificaciones del OV2640 \cite{camera_info}}
+	\caption[OV2640 especificaciones]{Tabla de especificaciones del OV2640 \cite{camera_info}.}
 	\begin{tabular}{lc}   
 		\toprule
 		\textbf{Característica} 	 & \textbf{Descripción}  \\
 		\midrule
 		Tamaño de matriz & 1600x1200 (UXGA) \\		
-		Fuente de alimentación & \begin{tabular}{@{}c@{}} \textit{Core}: 1.3 V ± 5\% \\ \textit{Analog} 2.5 ~ 3.0 V \\ I/O: 1.7 V - 3.3 V\end{tabular} \\
+		Fuente de alimentación & \begin{tabular}{@{}c@{}} \textit{Core}: 1.3 V ± 5\% \\ \textit{Analog} 2.5 ~ 3.0 V \\ I/O: 1,7 V - 3,3 V\end{tabular} \\
 		Consumo energético & \begin{tabular}{@{}c@{}} \textit{Free running}: 125 mW \\ \textit{Standby}: 600 \textmu A \end{tabular} \\
 		Formato de imagen del sensor & 1/4'' \\
 		Tasa de transferencia maxima & \begin{tabular}{@{}c@{}} 1600×1200 a 15 fps \\ SVGA a 30 fps \\ CIF a 60 fps \end{tabular} \\
 		Sensibilidad & 0.6 / Lux-sec \\
 		SNR & 40 dB \\
 		Rango dinámico & 50 dB \\
-		Tamano de pixel & x2.2x2.2 \textmu m \\
+		Tamano de pixel & 2,2x2,2 \textmu m \\
 		Formato de salida & YUV/RGB/MJPEG \\
 		\bottomrule
 		\hline
@@ -248,12 +248,12 @@ Como se explicó en los puntos anteriores, MTCNN se compone de tres etapas que f
 \begin{itemize}
 	\item Clasificación rostro/no rostro: este es un problema de clasificación binaria que utiliza una función de pérdida de entropía cruzada.
 	\item Regresión de \textit{bounding box}: el objetivo de aprendizaje es un problema de regresión. Para cada candidato, se calcula el \textit{offset} entre el candidato y el \textit{ground truth} \cite{ground_truth} más cercano. La función de pérdida Euclidiana es usada para esta tarea.
-	\item Localización de rasgos faciales:es formulada como un problema de regresión en el que la función de perdida es la distancia Euclidiana.
+	\item Localización de rasgos faciales: es formulada como un problema de regresión en el que la función de perdida es la distancia Euclidiana.
 \end{itemize}
 
 %----------------------------------------------------------------------------------------
 \section{Biblioteca TensorFlow}
-TensorFlow es una plataforma de código abierto para ML. Tiene un ecosistema completo y flexible de herramientas, bibliotecas y recursos comunitarios que permite a los desarrolladores crear e implementar fácilmente aplicaciones basadas en ML. Fue originalmente desarrollado por investigadores e ingenieros que trabajaban en el equipo Google Brain dentro de la organización de investigación de inteligencia artificial de Google y la versión inicial fue lanzada en 2015 bajo la licencia Apacha License 2.0 \cite{tf_info}. TensorFlow proporciona APIs estables y oficiales para Python y C++, aunque también existen APIs para otros lenguajes de programación que no están garantizadas de manera oficial.
+TensorFlow es una plataforma de código abierto para ML. Tiene un ecosistema completo y flexible de herramientas, bibliotecas y recursos comunitarios que permiten a los desarrolladores crear e implementar fácilmente aplicaciones basadas en ML. Fue originalmente desarrollado por investigadores e ingenieros que trabajaban en el equipo Google Brain dentro de la organización de investigación de inteligencia artificial de Google y la versión inicial fue lanzada en 2015 bajo la licencia Apacha License 2.0 \cite{tf_info}. TensorFlow proporciona APIs estables y oficiales para Python y C++, aunque también existen APIs para otros lenguajes de programación que no están garantizadas de manera oficial.
 
 Sus características principales son:
 \begin{itemize}
@@ -274,7 +274,7 @@ Para el desarrollo de aplicaciones de ML existen varias otras bibliotecas, algun
 
 %----------------------------------------------------------------------------------------
 \section{Servicios Web de Amazon}
-Mejor conocido como AWS (\textit{Amazon Web Services}) por sus siglas en inglés, es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
+Mejor conocido como AWS (\textit{Amazon Web Services}) por sus siglas en inglés, es una plataforma de \textit{cloud computing} provista por Amazon que incluye una combinación de IaaS, PaaS y SaaS. Los servicios de AWS pueden ofrecer herramientas de poder de cómputo, almacenamiento de datos y servicios de entrega de contenido \cite{aws_info}.
 
 AWS está dividido en distintos tipos de servicios que pueden ser configurados según las necesidades de cada usuario. Estos servicios pueden dividirse en las siguientes categorías: computación, almacenamiento, bases de datos, administración de datos, migración, redes, herramientas de desarrollo, monitoreo, administración de \textit{big data}, analíticas, AI, desarrollo móvil, mensajería y notificaciones.
 
